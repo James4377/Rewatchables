@@ -748,7 +748,7 @@ const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[
 
 function appleLink(title) {
   const q = encodeURIComponent('The Rewatchables ' + title);
-  return `https://podcasts.apple.com/search?term=${q}`;
+  return `https://www.theringer.com/search?q=rewatchables+${q}`;
 }
 
 let watched = {};
