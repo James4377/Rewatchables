@@ -746,10 +746,12 @@ const MOVIES = [
 
 const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[0].localeCompare(b[0]));
 
-function appleLink(title) {
-  const q = encodeURIComponent('The Rewatchables ' + title);
-  return `https://www.theringer.com/search?q=rewatchables+${q}`;
-}
+  const EPISODE_LINKS = {
+    "10 Things I Hate About You1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000399427775",
+};
+
+function appleLink(title, year) {
+  return EPISODE_LINKS[title+year] || "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882";
 
 let watched = {};
 try {
