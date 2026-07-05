@@ -6,25 +6,18 @@
 <title>The Rewatchables Tracker</title>
 <style>
   :root {
-    --bg: #0f0f0f;
-    --surface: #1a1a1a;
-    --surface2: #242424;
-    --border: #2e2e2e;
-    --border-strong: #3d3d3d;
+    --bg: #0a0a0a;
+    --surface: #111811;
+    --surface2: #1a241a;
+    --border: #1e2e1e;
+    --border-strong: #2a3e2a;
     --text: #f0f0f0;
     --text-muted: #888;
-    --text-dim: #555;
-    --accent: #e8b84b;
+    --text-dim: #4a6a4a;
+    --accent: #3ecf8e;
+    --accent-bright: #4fffb0;
+    --accent-dark: #2a9e68;
     --success: #3ecf8e;
-    --netflix: #e50914;
-    --prime: #00a8e0;
-    --max: #6c3db5;
-    --hulu: #1ce783;
-    --disney: #113ccf;
-    --paramount: #0068ff;
-    --peacock: #f8b000;
-    --tubi: #fa4015;
-    --pluto: #3d6cff;
     --radius: 8px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -36,19 +29,29 @@
   }
   .container { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
 
-  /* Header */
   header {
     padding: 36px 0 24px;
     border-bottom: 1px solid var(--border);
     margin-bottom: 24px;
   }
-  .header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-  header h1 span { color: var(--accent); }
-  header p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 14px;
+    flex-shrink: 0;
+    object-fit: cover;
+    box-shadow: 0 0 14px rgba(62,207,142,0.25);
+  }
+  .header-text h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+  .header-text h1 span { color: var(--accent); }
+  .header-text p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
   .last-updated { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
 
-  /* Stats */
   .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -65,23 +68,23 @@
   .stat .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
   .stat.highlight .num { color: var(--accent); }
 
-  /* Progress */
   .progress-wrap { margin-bottom: 24px; }
   .progress-bar {
     background: var(--surface2);
     border-radius: 4px;
     height: 6px;
     overflow: hidden;
+    border: 1px solid var(--border);
   }
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--success), #2db87a);
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-bright));
     border-radius: 4px;
     transition: width 0.4s ease;
+    box-shadow: 0 0 8px rgba(62, 207, 142, 0.4);
   }
   .progress-label { font-size: 11px; color: var(--text-dim); margin-top: 5px; text-align: right; }
 
-  /* Controls */
   .controls {
     display: flex;
     gap: 8px;
@@ -94,19 +97,22 @@
   input[type="text"] {
     width: 100%;
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     color: var(--text);
     font-size: 14px;
     padding: 9px 12px 9px 34px;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  input[type="text"]:focus { border-color: var(--accent); }
+  input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(62, 207, 142, 0.15);
+  }
   input[type="text"]::placeholder { color: var(--text-dim); }
   select {
     background: var(--surface);
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     color: var(--text);
     font-size: 13px;
@@ -117,14 +123,13 @@
     appearance: none;
     -webkit-appearance: none;
     padding-right: 28px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6a4a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 8px center;
   }
   select:focus { border-color: var(--accent); }
   .results-count { font-size: 12px; color: var(--text-dim); white-space: nowrap; padding: 9px 4px; }
 
-  /* Movie list */
   .movie-list { display: flex; flex-direction: column; gap: 0; }
   .movie-row {
     display: flex;
@@ -140,58 +145,67 @@
   .movie-row:last-child { border-bottom: none; }
   .movie-row:hover { background: var(--surface); }
   .movie-row:active { background: var(--surface2); }
-  .movie-row.watched { opacity: 0.45; }
+  .movie-row.watched { opacity: 0.4; }
   .movie-row.watched .movie-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
 
+  /* Original-style checkbox: neutral grey, not green */
   .checkbox {
     width: 20px;
     height: 20px;
-    border: 1.5px solid var(--border-strong);
+    border: 1.5px solid #3d3d3d;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     transition: all 0.15s;
+    background: transparent;
   }
   .movie-row.watched .checkbox {
-    background: var(--success);
-    border-color: var(--success);
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 6px rgba(62, 207, 142, 0.5);
   }
   .check-svg { display: none; }
   .movie-row.watched .check-svg { display: block; }
 
   .movie-info { flex: 1; min-width: 0; }
-  .movie-title { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .movie-year { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+  /* Original-style text: white title, grey year */
+  .movie-title { font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .movie-year { font-size: 12px; color: #888; margin-top: 1px; }
 
-  .badges { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; flex-shrink: 0; max-width: 210px; }
-  .badge {
+  .listen-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
+    font-weight: 700;
+    padding: 3px 10px;
     border-radius: 20px;
     white-space: nowrap;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid var(--accent);
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+    cursor: pointer;
   }
-  .badge.N { background: var(--netflix); color: #fff; }
-  .badge.P { background: var(--prime); color: #fff; }
-  .badge.M { background: var(--max); color: #fff; }
-  .badge.H { background: var(--hulu); color: #0a3d24; }
-  .badge.D { background: var(--disney); color: #fff; }
-  .badge.PC { background: var(--paramount); color: #fff; }
-  .badge.PK { background: var(--peacock); color: #3a2600; }
-  .badge.T { background: var(--tubi); color: #fff; }
-  .badge.PL { background: var(--pluto); color: #fff; }
-  .badge.X { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border-strong); }
+  .listen-btn:hover {
+    background: var(--accent);
+    color: #0a0a0a;
+    box-shadow: 0 0 10px rgba(62, 207, 142, 0.4);
+  }
+  .listen-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
 
   .no-results { padding: 48px; text-align: center; color: var(--text-muted); font-size: 14px; }
   .no-results p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
 
-  /* Reset button */
   .reset-btn {
     background: none;
-    border: 1px solid var(--border);
+    border: 1px solid var(--border-strong);
     border-radius: var(--radius);
     color: var(--text-muted);
     font-size: 12px;
@@ -201,7 +215,6 @@
   }
   .reset-btn:hover { border-color: #c0392b; color: #e74c3c; }
 
-  /* Footer */
   footer {
     margin-top: 40px;
     padding-top: 20px;
@@ -212,11 +225,10 @@
     line-height: 1.6;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
-    .badges { max-width: 120px; }
-    header h1 { font-size: 20px; }
+    .header-logo { width: 54px; height: 54px; }
+    .header-text h1 { font-size: 20px; }
     .stat .num { font-size: 22px; }
   }
 </style>
@@ -224,10 +236,17 @@
 <body>
 <div class="container">
   <header>
-    <div class="header-top">
-      <div>
+    <div class="header-inner">
+      <img
+        class="header-logo"
+        src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/ff/3f/26/ff3f2602-efee-3877-b8c2-05377cf14090/mza_1802934075401834186.jpg/600x600bb.jpg"
+        alt="The Rewatchables podcast logo"
+        onerror="this.style.display='none'"
+      >
+      <div class="header-text">
         <h1>The <span>Rewatchables</span> Tracker</h1>
         <p>All films featured on The Ringer's podcast with Bill Simmons</p>
+        <p class="last-updated">Updated through June 2026</p>
       </div>
     </div>
   </header>
@@ -249,19 +268,6 @@
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="text" id="search" placeholder="Search films…" oninput="render()">
     </div>
-    <select id="filter-stream" onchange="render()">
-      <option value="">All streaming</option>
-      <option value="N">Netflix</option>
-      <option value="P">Prime Video</option>
-      <option value="M">Max</option>
-      <option value="H">Hulu</option>
-      <option value="D">Disney+</option>
-      <option value="PC">Paramount+</option>
-      <option value="PK">Peacock</option>
-      <option value="T">Tubi</option>
-      <option value="PL">Pluto TV</option>
-      <option value="X">Not streaming</option>
-    </select>
     <select id="filter-watch" onchange="render()">
       <option value="">All films</option>
       <option value="u">Unwatched</option>
@@ -285,464 +291,466 @@
 
   <footer>
     The Rewatchables is a podcast from The Ringer with Bill Simmons.<br>
-    Streaming availability may change. Progress saved in your browser's local storage.<br>
-    Last updated: July 4, 2026
+    Progress saved in your browser's local storage · Last updated: June 2026
   </footer>
 </div>
 
 <script>
+// FORMAT: ["Title", year]
+// TO ADD A NEW MOVIE: add a new line in the same format with a comma at the end.
 const MOVIES = [
-  ["10 Things I Hate About You",1999,["D"]],
-  ["2001: A Space Odyssey",1968,["M"]],
-  ["25th Hour",2002,["M"]],
-  ["The 40-Year-Old Virgin",2005,["X"]],
-  ["48 Hrs.",1982,["PC"]],
-  ["8MM",1999,["T"]],
-  ["Above the Rim",1994,["T","PL"]],
-  ["Ace Ventura: Pet Detective",1994,["T","PL"]],
-  ["Adventureland",2009,["PC"]],
-  ["After Hours",1985,["M","T"]],
-  ["Airplane!",1980,["N","P"]],
-  ["Alien",1979,["H","D"]],
-  ["Alive",1993,["PC"]],
-  ["All the President's Men",1976,["M"]],
-  ["Along Came Polly",2004,["PK"]],
-  ["American Gangster",2007,["PK"]],
-  ["American Gigolo",1980,["PC"]],
-  ["American Pie",1999,["PK"]],
-  ["The American President",1995,["T"]],
-  ["An Officer and a Gentleman",1982,["PC"]],
-  ["Animal House",1978,["PK"]],
-  ["Another 48 Hrs.",1990,["PC"]],
-  ["Any Given Sunday",1999,["M"]],
-  ["Argo",2012,["M"]],
-  ["Armageddon",1998,["D"]],
-  ["Austin Powers: International Man of Mystery",1997,["PK"]],
-  ["Austin Powers: The Spy Who Shagged Me",1999,["PK"]],
-  ["A Bronx Tale",1993,["T"]],
-  ["A Few Good Men",1992,["N"]],
-  ["A League of Their Own",1992,["N","P"]],
-  ["A Star Is Born",2018,["M"]],
-  ["A Time to Kill",1996,["M"]],
-  ["Back to the Future",1985,["PK"]],
-  ["Back to the Future Part II",1989,["PK"]],
-  ["Bad Boys",1995,["N"]],
-  ["The Bad News Bears",1976,["PC"]],
-  ["Basic Instinct",1992,["T","PL"]],
-  ["Batman",1989,["M"]],
-  ["Before Sunrise",1995,["M"]],
-  ["Before Sunset",2004,["M"]],
-  ["Best in Show",2000,["M"]],
-  ["Beverly Hills Cop",1984,["PC"]],
-  ["Beverly Hills Cop II",1987,["PC"]],
-  ["Big",1988,["D","H"]],
-  ["Big Daddy",1999,["X"]],
-  ["The Big Chill",1983,["N"]],
-  ["The Big Lebowski",1998,["N","P"]],
-  ["Blackhat",2015,["PK"]],
-  ["The Blair Witch Project",1999,["H"]],
-  ["Blood Diamond",2006,["M"]],
-  ["Bloodsport",1988,["M","T"]],
-  ["Blow",2001,["N"]],
-  ["Blow Out",1981,["M","T"]],
-  ["Blue Chips",1994,["PC"]],
-  ["The Blues Brothers",1980,["PK"]],
-  ["Body Double",1984,["T"]],
-  ["Body Heat",1981,["M","T"]],
-  ["The Bodyguard",1992,["M"]],
-  ["Boogie Nights",1997,["M","T"]],
-  ["Boomerang",1992,["PC","T"]],
-  ["Borat",2006,["P"]],
-  ["The Bourne Identity",2002,["PK"]],
-  ["Boyz n the Hood",1991,["X"]],
-  ["Braveheart",1995,["PC","P"]],
-  ["The Breakfast Club",1985,["PK"]],
-  ["Breaking Away",1979,["T","PL"]],
-  ["Bridesmaids",2011,["PK"]],
-  ["Broadcast News",1987,["T"]],
-  ["Brokeback Mountain",2005,["M"]],
-  ["Bull Durham",1988,["T","P"]],
-  ["Burn After Reading",2008,["M"]],
-  ["Butch Cassidy and the Sundance Kid",1969,["D"]],
-  ["Caddyshack",1980,["M"]],
-  ["Can't Buy Me Love",1987,["D"]],
-  ["Can't Hardly Wait",1998,["T"]],
-  ["Cape Fear",1991,["PK"]],
-  ["Casino",1995,["N"]],
-  ["Casino Royale",2006,["M"]],
-  ["Cast Away",2000,["N","M"]],
-  ["Catch Me If You Can",2002,["PK"]],
-  ["Chef",2014,["N"]],
-  ["City Slickers",1991,["T"]],
-  ["Clear and Present Danger",1994,["PC"]],
-  ["Cliffhanger",1993,["T"]],
-  ["Close Encounters of the Third Kind",1977,["N"]],
-  ["Clueless",1995,["PC"]],
-  ["Cobra",1986,["M","T"]],
-  ["Cocktail",1988,["D"]],
-  ["Collateral",2004,["N"]],
-  ["The Color of Money",1986,["D"]],
-  ["Coming to America",1988,["PC"]],
-  ["Commando",1985,["T"]],
-  ["Con Air",1997,["P"]],
-  ["Contagion",2011,["M"]],
-  ["Cop Land",1997,["T"]],
-  ["The Conjuring",2013,["M"]],
-  ["Crash",2004,["X"]],
-  ["Crazy, Stupid, Love.",2011,["N"]],
-  ["Creed",2015,["M"]],
-  ["Crimson Tide",1995,["T"]],
-  ["Cruel Intentions",1999,["N"]],
-  ["Cruising",1980,["P","T"]],
-  ["Dangerous Minds",1995,["D"]],
-  ["The Dark Knight",2008,["M"]],
-  ["Dave",1993,["M","T"]],
-  ["Days of Thunder",1990,["PC"]],
-  ["Dazed and Confused",1993,["PK"]],
-  ["Dead Poets Society",1989,["D","P"]],
-  ["Death Wish",1974,["T","PL"]],
-  ["Deliverance",1972,["M","T"]],
-  ["Den of Thieves",2018,["T"]],
-  ["The Departed",2006,["M"]],
-  ["The Devil Wears Prada",2006,["D"]],
-  ["The Devil's Advocate",1997,["M"]],
-  ["Die Hard",1988,["D","T"]],
-  ["Die Hard 2",1990,["D","T"]],
-  ["Die Hard With a Vengeance",1995,["D","T"]],
-  ["Disclosure",1994,["M"]],
-  ["Do the Right Thing",1989,["P"]],
-  ["Dodgeball: A True Underdog Story",2004,["D","H"]],
-  ["Domestic Disturbance",2001,["PK","T"]],
-  ["The Doors",1991,["T"]],
-  ["Draft Day",2014,["PK"]],
-  ["Dumb and Dumber",1994,["H"]],
-  ["Dunkirk",2017,["M"]],
-  ["The Edge",1997,["X"]],
-  ["E.T. the Extra-Terrestrial",1982,["PK"]],
-  ["Easy A",2010,["N"]],
-  ["Eddie and the Cruisers",1983,["T"]],
-  ["Edge of Tomorrow",2014,["M"]],
-  ["Election",1999,["PC"]],
-  ["Enemy of the State",1998,["D"]],
-  ["The Equalizer",2014,["N"]],
-  ["Escape from New York",1981,["T","PL"]],
-  ["Escape to Victory",1981,["T"]],
-  ["The Exorcist",1973,["PK"]],
-  ["Eyes Wide Shut",1999,["M"]],
-  ["F1",2025,["X"]],
-  ["Face/Off",1997,["H","T"]],
-  ["Fargo",1996,["M","H"]],
-  ["Fast & Furious",2009,["PK"]],
-  ["The Fast and the Furious",2001,["PK"]],
-  ["Fast Five",2011,["PK"]],
-  ["Fast Times at Ridgemont High",1982,["N","P"]],
-  ["Fatal Attraction",1987,["PC"]],
-  ["Father of the Bride",1991,["D"]],
-  ["Ferris Bueller's Day Off",1986,["PC"]],
-  ["The Firm",1993,["PC"]],
-  ["Field of Dreams",1989,["PK"]],
-  ["Fight Club",1999,["D","H"]],
-  ["First Blood",1982,["P","T"]],
-  ["Fletch",1985,["PK","T"]],
-  ["Flight",2012,["PC"]],
-  ["Focus",2015,["M"]],
-  ["For Love of the Game",1999,["PK"]],
-  ["Forgetting Sarah Marshall",2008,["PK"]],
-  ["Forrest Gump",1994,["PC"]],
-  ["Friday",1995,["M"]],
-  ["Friday Night Lights",2004,["PK"]],
-  ["The Fugitive",1993,["M","T"]],
-  ["Furious 7",2015,["PK"]],
-  ["The Game",1997,["N"]],
-  ["Get Out",2017,["M"]],
-  ["Ghost",1990,["PC"]],
-  ["Ghostbusters",1984,["N"]],
-  ["Gladiator",2000,["PC","P"]],
-  ["Glengarry Glen Ross",1992,["T","P"]],
-  ["GoldenEye",1995,["M"]],
-  ["The Godfather",1972,["PC"]],
-  ["The Godfather Part II",1974,["PC"]],
-  ["The Godfather Part III",1990,["PC"]],
-  ["Gone Girl",2014,["D"]],
-  ["Good Will Hunting",1997,["P","T"]],
-  ["GoodFellas",1990,["M"]],
-  ["The Good Son",1993,["D"]],
-  ["The Grand Budapest Hotel",2014,["D","H"]],
-  ["Grease",1978,["PC"]],
-  ["Groundhog Day",1993,["N"]],
-  ["Halloween",1978,["PK"]],
-  ["Halloween II",1981,["PK","T"]],
-  ["The Hand That Rocks the Cradle",1992,["D"]],
-  ["The Hangover",2009,["M"]],
-  ["Happy Gilmore",1996,["N"]],
-  ["Hardcore",1979,["T"]],
-  ["Hard to Kill",1990,["T"]],
-  ["He Got Game",1998,["T"]],
-  ["Heat",1995,["M"]],
-  ["Heaven Can Wait",1978,["T"]],
-  ["Hereditary",2018,["M"]],
-  ["High Fidelity",2000,["D"]],
-  ["Higher Learning",1995,["T"]],
-  ["Hitch",2005,["N"]],
-  ["Home Alone",1990,["D"]],
-  ["Home Alone 2: Lost in New York",1992,["D"]],
-  ["Hoosiers",1986,["T"]],
-  ["The Holiday",2006,["N"]],
-  ["I Am Legend",2007,["M"]],
-  ["The Ice Storm",1997,["T"]],
-  ["In the Line of Fire",1993,["N"]],
-  ["Inception",2010,["M"]],
-  ["Indecent Proposal",1993,["PC"]],
-  ["Independence Day",1996,["D"]],
-  ["Indiana Jones and the Last Crusade",1989,["PC"]],
-  ["Inglourious Basterds",2009,["PK"]],
-  ["The Insider",1999,["M"]],
-  ["Inside Man",2006,["PK"]],
-  ["Insidious",2010,["PK"]],
-  ["Internal Affairs",1990,["T"]],
-  ["Iron Man",2008,["D"]],
-  ["It's Complicated",2009,["H"]],
-  ["JFK",1991,["X"]],
-  ["Jack Reacher",2012,["PC"]],
-  ["Jaws",1975,["PK"]],
-  ["Jaws 2",1978,["PK"]],
-  ["Jeremiah Johnson",1972,["T"]],
-  ["Jerry Maguire",1996,["N"]],
-  ["John Wick",2014,["PK","P"]],
-  ["John Wick: Chapter 2",2017,["PK","P"]],
-  ["Juice",1992,["PK"]],
-  ["Just One of the Guys",1985,["T"]],
-  ["Jurassic Park",1993,["PK"]],
-  ["The Karate Kid",1984,["N"]],
-  ["Kindergarten Cop",1990,["PK","T"]],
-  ["Knocked Up",2007,["PK"]],
-  ["Kramer vs. Kramer",1979,["N"]],
-  ["L.A. Confidential",1997,["M"]],
-  ["The Last Boy Scout",1991,["M"]],
-  ["The Last Days of Disco",1998,["T"]],
-  ["The Last of the Mohicans",1992,["T","P"]],
-  ["The Legend of Billie Jean",1985,["T"]],
-  ["Legally Blonde",2001,["PK"]],
-  ["Legends of the Fall",1994,["N"]],
-  ["Lethal Weapon",1987,["M","T"]],
-  ["Lethal Weapon 2",1989,["M","T"]],
-  ["Limitless",2011,["T"]],
-  ["The Longest Yard",1974,["PC"]],
-  ["Lost in Translation",2003,["M"]],
-  ["Love & Basketball",2000,["M"]],
-  ["Mad Max: Fury Road",2015,["M"]],
-  ["Magic Mike",2012,["M"]],
-  ["Magnolia",1999,["T"]],
-  ["Major League",1989,["T","P"]],
-  ["Manchester by the Sea",2016,["M"]],
-  ["Manhunter",1986,["T","PL"]],
-  ["Man on Fire",2004,["D"]],
-  ["Marathon Man",1976,["PC","T"]],
-  ["Margin Call",2011,["N"]],
-  ["The Martian",2015,["D","H"]],
-  ["Mean Girls",2004,["PC"]],
-  ["Meet the Parents",2000,["PK"]],
-  ["Memento",2000,["N"]],
-  ["Miami Vice",2006,["PK"]],
-  ["Michael Clayton",2007,["M"]],
-  ["Midnight Run",1988,["P","T"]],
-  ["Minority Report",2002,["PK"]],
-  ["Miracle",2004,["D"]],
-  ["Misery",1990,["P","T"]],
-  ["Mission: Impossible",1996,["PC"]],
-  ["Mission: Impossible – Fallout",2018,["PC"]],
-  ["Moneyball",2011,["N"]],
-  ["Mr. & Mrs. Smith",2005,["D"]],
-  ["Mr. Holland's Opus",1995,["T"]],
-  ["Mrs. Doubtfire",1993,["D"]],
-  ["My Best Friend's Wedding",1997,["N"]],
-  ["My Cousin Vinny",1992,["H"]],
-  ["The Naked Gun",1988,["PC"]],
-  ["National Lampoon's Christmas Vacation",1989,["M"]],
-  ["National Lampoon's Vacation",1983,["M"]],
-  ["The Natural",1984,["N"]],
-  ["Neighbors",2014,["PK"]],
-  ["Never Been Kissed",1999,["D"]],
-  ["New Jack City",1991,["M"]],
-  ["The Nice Guys",2016,["M"]],
-  ["No Country for Old Men",2007,["PC"]],
-  ["No Way Out",1987,["T"]],
-  ["The Notebook",2004,["P"]],
-  ["Notting Hill",1999,["PK"]],
-  ["Ocean's Eleven",2001,["M"]],
-  ["Ocean's Twelve",2004,["M"]],
-  ["Office Space",1999,["D","H"]],
-  ["Old School",2003,["PC","P"]],
-  ["The Omen",1976,["H","D"]],
-  ["Once Upon a Time... in Hollywood",2019,["N"]],
-  ["Ordinary People",1980,["PC","T"]],
-  ["Out for Justice",1991,["M","T"]],
-  ["Out of Sight",1998,["PK"]],
-  ["Over the Top",1987,["T"]],
-  ["Pacific Heights",1990,["T"]],
-  ["Panic Room",2002,["N"]],
-  ["Parenthood",1989,["PK"]],
-  ["The Pelican Brief",1993,["M"]],
-  ["The Perfect Storm",2000,["X"]],
-  ["Philadelphia",1993,["N"]],
-  ["Pineapple Express",2008,["N"]],
-  ["Pitch Perfect",2012,["PK"]],
-  ["The Player",1992,["M","T"]],
-  ["Planes, Trains and Automobiles",1987,["PK"]],
-  ["Platoon",1986,["T","P"]],
-  ["Point Break",1991,["T"]],
-  ["Poltergeist",1982,["M"]],
-  ["Predator",1987,["H","D"]],
-  ["Primal Fear",1996,["PC"]],
-  ["Proof of Life",2000,["X"]],
-  ["The Princess Bride",1987,["D","M"]],
-  ["Pretty Woman",1990,["D"]],
-  ["The Program",1993,["T"]],
-  ["Project X",2012,["M"]],
-  ["Pulp Fiction",1994,["T"]],
-  ["Pump Up the Volume",1990,["X"]],
-  ["The Purge",2013,["X"]],
-  ["Purple Rain",1984,["T"]],
-  ["Quiz Show",1994,["T"]],
-  ["Rachel Getting Married",2008,["N"]],
-  ["Raiders of the Lost Ark",1981,["PC"]],
-  ["Rain Man",1988,["T"]],
-  ["Ransom",1996,["D"]],
-  ["Reality Bites",1994,["PK"]],
-  ["Remember the Titans",2000,["D"]],
-  ["The Replacements",2000,["M","T"]],
-  ["Reservoir Dogs",1992,["M","T"]],
-  ["Risky Business",1983,["M"]],
-  ["Road House",1989,["P"]],
-  ["RoboCop",1987,["T","P"]],
-  ["Robin Hood: Prince of Thieves",1991,["M"]],
-  ["The Rock",1996,["M"]],
-  ["Rocky",1976,["P","T"]],
-  ["Rocky II",1979,["P","T"]],
-  ["Rocky III",1982,["P","T"]],
-  ["Rocky IV",1985,["P","T"]],
-  ["Rollerball",1975,["T"]],
-  ["Ronin",1998,["T"]],
-  ["Rounders",1998,["P","T"]],
-  ["The Royal Tenenbaums",2001,["D","H"]],
-  ["Rudy",1993,["N","P"]],
-  ["The Running Man",1987,["T"]],
-  ["Running Scared",1986,["T"]],
-  ["The Saint",1997,["PL"]],
-  ["Saturday Night Fever",1977,["PC"]],
-  ["Saving Private Ryan",1998,["PC"]],
-  ["Say Anything...",1989,["D","H"]],
-  ["School Ties",1992,["PC"]],
-  ["Scent of a Woman",1992,["PK"]],
-  ["Scream",1996,["PC"]],
-  ["Se7en",1995,["M"]],
-  ["Searching for Bobby Fischer",1993,["T"]],
-  ["Shampoo",1975,["T"]],
-  ["The Shawshank Redemption",1994,["M"]],
-  ["The Shining",1980,["M"]],
-  ["Shooter",2007,["PK"]],
-  ["Shotcaller",2017,["H"]],
-  ["Sicario",2015,["N"]],
-  ["Sideways",2004,["D","H"]],
-  ["The Silence of the Lambs",1991,["P","T"]],
-  ["Silver Linings Playbook",2012,["PC"]],
-  ["Singles",1992,["T"]],
-  ["Single White Female",1992,["N"]],
-  ["Sinners",2025,["M"]],
-  ["Sixteen Candles",1984,["PK"]],
-  ["The Sixth Sense",1999,["X"]],
-  ["Skyfall",2012,["PC"]],
-  ["Slap Shot",1977,["PK","T"]],
-  ["Sleeping with the Enemy",1991,["D","H"]],
-  ["Sleepless in Seattle",1993,["N"]],
-  ["Snake Eyes",1998,["T"]],
-  ["Sneakers",1992,["PK"]],
-  ["So I Married an Axe Murderer",1993,["N"]],
-  ["The Social Network",2010,["X"]],
-  ["Someone to Watch Over Me",1987,["X"]],
-  ["Species",1995,["PL"]],
-  ["Speed",1994,["D"]],
-  ["Spider-Man",2002,["D"]],
-  ["Spotlight",2015,["M"]],
-  ["St. Elmo's Fire",1985,["T"]],
-  ["Stand by Me",1986,["N"]],
-  ["Star Wars",1977,["D"]],
-  ["Step Brothers",2008,["N"]],
-  ["The Sting",1973,["PK"]],
-  ["Stripes",1981,["N"]],
-  ["Sudden Death",1995,["X"]],
-  ["Superbad",2007,["N"]],
-  ["The Sure Thing",1985,["T"]],
-  ["Swingers",1996,["T"]],
-  ["The Sandlot",1993,["D"]],
-  ["Taken",2008,["PK"]],
-  ["The Talented Mr. Ripley",1999,["N"]],
-  ["Tango & Cash",1989,["M","T"]],
-  ["Taxi Driver",1976,["N","M"]],
-  ["Teen Wolf",1985,["T"]],
-  ["The Terminator",1984,["N"]],
-  ["Terminator 2: Judgment Day",1991,["N"]],
-  ["There Will Be Blood",2007,["M"]],
-  ["There's Something About Mary",1998,["H","D"]],
-  ["They Live",1988,["T"]],
-  ["Thief",1981,["T"]],
-  ["This Is the End",2013,["N"]],
-  ["Tin Cup",1996,["M"]],
-  ["Titanic",1997,["PC"]],
-  ["To Live and Die in L.A.",1985,["T"]],
-  ["Tommy Boy",1995,["PC"]],
-  ["Top Gun",1986,["PC"]],
-  ["Top Gun: Maverick",2022,["PC"]],
-  ["Total Recall",1990,["P","T"]],
-  ["Toy Soldiers",1991,["X"]],
-  ["Toy Story",1995,["D"]],
-  ["The Town",2010,["M"]],
-  ["Trading Places",1983,["T","P"]],
-  ["Training Day",2001,["M"]],
-  ["Trainspotting",1996,["PK"]],
-  ["Tremors",1990,["PK","T"]],
-  ["Tropic Thunder",2008,["N","P"]],
-  ["The Truman Show",1998,["PK"]],
-  ["True Lies",1994,["D"]],
-  ["True Romance",1993,["M","T"]],
-  ["Two for the Money",2005,["T"]],
-  ["Twister",1996,["M"]],
-  ["Under Siege",1992,["T"]],
-  ["Unforgiven",1992,["M"]],
-  ["The Untouchables",1987,["PC"]],
-  ["Unstoppable",2010,["D"]],
-  ["The Usual Suspects",1995,["M"]],
-  ["The Vanishing",1993,["X"]],
-  ["Varsity Blues",1999,["PC"]],
-  ["The Verdict",1982,["X"]],
-  ["Vision Quest",1985,["M"]],
-  ["Wall Street",1987,["T"]],
-  ["The War of the Roses",1989,["D"]],
-  ["Warrior",2011,["PK"]],
-  ["The Warriors",1979,["T"]],
-  ["Wayne's World",1992,["PC"]],
-  ["Wedding Crashers",2005,["M"]],
-  ["Weird Science",1985,["PK"]],
-  ["What About Bob?",1991,["D"]],
-  ["What Lies Beneath",2000,["D"]],
-  ["When Harry Met Sally...",1989,["M"]],
-  ["Whiplash",2014,["N"]],
-  ["While You Were Sleeping",1995,["D"]],
-  ["White Men Can't Jump",1992,["T"]],
-  ["Wild Things",1998,["T"]],
-  ["Witness",1985,["PC"]],
-  ["The Wolf of Wall Street",2013,["PK"]],
-  ["Working Girl",1988,["D"]],
-  ["You've Got Mail",1998,["M"]],
-  ["Zodiac",2007,["P"]],
+  ["10 Things I Hate About You", 1999],
+  ["2001: A Space Odyssey", 1968],
+  ["25th Hour", 2002],
+  ["The 40-Year-Old Virgin", 2005],
+  ["48 Hrs.", 1982],
+  ["8MM", 1999],
+  ["Above the Rim", 1994],
+  ["Ace Ventura: Pet Detective", 1994],
+  ["Adventureland", 2009],
+  ["After Hours", 1985],
+  ["Airplane!", 1980],
+  ["Alien", 1979],
+  ["Alive", 1993],
+  ["All the President's Men", 1976],
+  ["Along Came Polly", 2004],
+  ["American Gangster", 2007],
+  ["American Gigolo", 1980],
+  ["American Pie", 1999],
+  ["The American President", 1995],
+  ["An Officer and a Gentleman", 1982],
+  ["Animal House", 1978],
+  ["Another 48 Hrs.", 1990],
+  ["Any Given Sunday", 1999],
+  ["Argo", 2012],
+  ["Armageddon", 1998],
+  ["Austin Powers: International Man of Mystery", 1997],
+  ["Austin Powers: The Spy Who Shagged Me", 1999],
+  ["A Bronx Tale", 1993],
+  ["A Few Good Men", 1992],
+  ["A League of Their Own", 1992],
+  ["A Star Is Born", 2018],
+  ["A Time to Kill", 1996],
+  ["Back to the Future", 1985],
+  ["Back to the Future Part II", 1989],
+  ["Bad Boys", 1995],
+  ["The Bad News Bears", 1976],
+  ["Basic Instinct", 1992],
+  ["Batman", 1989],
+  ["Before Sunrise", 1995],
+  ["Before Sunset", 2004],
+  ["Best in Show", 2000],
+  ["Beverly Hills Cop", 1984],
+  ["Beverly Hills Cop II", 1987],
+  ["Big", 1988],
+  ["Big Daddy", 1999],
+  ["The Big Chill", 1983],
+  ["The Big Lebowski", 1998],
+  ["Blackhat", 2015],
+  ["The Blair Witch Project", 1999],
+  ["Blood Diamond", 2006],
+  ["Bloodsport", 1988],
+  ["Blow", 2001],
+  ["Blow Out", 1981],
+  ["Blue Chips", 1994],
+  ["The Blues Brothers", 1980],
+  ["Body Double", 1984],
+  ["Body Heat", 1981],
+  ["The Bodyguard", 1992],
+  ["Boogie Nights", 1997],
+  ["Boomerang", 1992],
+  ["Borat", 2006],
+  ["The Bourne Identity", 2002],
+  ["Boyz n the Hood", 1991],
+  ["Braveheart", 1995],
+  ["The Breakfast Club", 1985],
+  ["Breaking Away", 1979],
+  ["Bridesmaids", 2011],
+  ["Broadcast News", 1987],
+  ["Brokeback Mountain", 2005],
+  ["Bull Durham", 1988],
+  ["Burn After Reading", 2008],
+  ["Butch Cassidy and the Sundance Kid", 1969],
+  ["Caddyshack", 1980],
+  ["Can't Buy Me Love", 1987],
+  ["Can't Hardly Wait", 1998],
+  ["Cape Fear", 1991],
+  ["Casino", 1995],
+  ["Casino Royale", 2006],
+  ["Cast Away", 2000],
+  ["Catch Me If You Can", 2002],
+  ["Chef", 2014],
+  ["City Slickers", 1991],
+  ["Clear and Present Danger", 1994],
+  ["Cliffhanger", 1993],
+  ["Close Encounters of the Third Kind", 1977],
+  ["Clueless", 1995],
+  ["Cobra", 1986],
+  ["Cocktail", 1988],
+  ["Collateral", 2004],
+  ["The Color of Money", 1986],
+  ["Coming to America", 1988],
+  ["Commando", 1985],
+  ["Con Air", 1997],
+  ["Contagion", 2011],
+  ["Cop Land", 1997],
+  ["The Conjuring", 2013],
+  ["Crash", 2004],
+  ["Crazy, Stupid, Love.", 2011],
+  ["Creed", 2015],
+  ["Crimson Tide", 1995],
+  ["Cruel Intentions", 1999],
+  ["Cruising", 1980],
+  ["Dangerous Minds", 1995],
+  ["The Dark Knight", 2008],
+  ["Dave", 1993],
+  ["Days of Thunder", 1990],
+  ["Dazed and Confused", 1993],
+  ["Dead Poets Society", 1989],
+  ["Death Wish", 1974],
+  ["Deliverance", 1972],
+  ["Den of Thieves", 2018],
+  ["The Departed", 2006],
+  ["The Devil Wears Prada", 2006],
+  ["The Devil's Advocate", 1997],
+  ["Die Hard", 1988],
+  ["Die Hard 2", 1990],
+  ["Die Hard With a Vengeance", 1995],
+  ["Disclosure", 1994],
+  ["Do the Right Thing", 1989],
+  ["Dodgeball: A True Underdog Story", 2004],
+  ["Domestic Disturbance", 2001],
+  ["The Doors", 1991],
+  ["Draft Day", 2014],
+  ["Dumb and Dumber", 1994],
+  ["Dunkirk", 2017],
+  ["The Edge", 1997],
+  ["E.T. the Extra-Terrestrial", 1982],
+  ["Easy A", 2010],
+  ["Eddie and the Cruisers", 1983],
+  ["Edge of Tomorrow", 2014],
+  ["Election", 1999],
+  ["Enemy of the State", 1998],
+  ["The Equalizer", 2014],
+  ["Escape from New York", 1981],
+  ["Escape to Victory", 1981],
+  ["The Exorcist", 1973],
+  ["Eyes Wide Shut", 1999],
+  ["F1", 2025],
+  ["Face/Off", 1997],
+  ["Fargo", 1996],
+  ["Fast & Furious", 2009],
+  ["The Fast and the Furious", 2001],
+  ["Fast Five", 2011],
+  ["Fast Times at Ridgemont High", 1982],
+  ["Fatal Attraction", 1987],
+  ["Father of the Bride", 1991],
+  ["Ferris Bueller's Day Off", 1986],
+  ["The Firm", 1993],
+  ["Field of Dreams", 1989],
+  ["Fight Club", 1999],
+  ["First Blood", 1982],
+  ["Fletch", 1985],
+  ["Flight", 2012],
+  ["Focus", 2015],
+  ["For Love of the Game", 1999],
+  ["Forgetting Sarah Marshall", 2008],
+  ["Forrest Gump", 1994],
+  ["Friday", 1995],
+  ["Friday Night Lights", 2004],
+  ["The Fugitive", 1993],
+  ["Furious 7", 2015],
+  ["The Game", 1997],
+  ["Get Out", 2017],
+  ["Ghost", 1990],
+  ["Ghostbusters", 1984],
+  ["Gladiator", 2000],
+  ["Glengarry Glen Ross", 1992],
+  ["GoldenEye", 1995],
+  ["The Godfather", 1972],
+  ["The Godfather Part II", 1974],
+  ["The Godfather Part III", 1990],
+  ["Gone Girl", 2014],
+  ["Good Will Hunting", 1997],
+  ["GoodFellas", 1990],
+  ["The Good Son", 1993],
+  ["The Grand Budapest Hotel", 2014],
+  ["Grease", 1978],
+  ["Groundhog Day", 1993],
+  ["Halloween", 1978],
+  ["Halloween II", 1981],
+  ["The Hand That Rocks the Cradle", 1992],
+  ["The Hangover", 2009],
+  ["Happy Gilmore", 1996],
+  ["Hardcore", 1979],
+  ["Hard to Kill", 1990],
+  ["He Got Game", 1998],
+  ["Heat", 1995],
+  ["Heaven Can Wait", 1978],
+  ["Hereditary", 2018],
+  ["High Fidelity", 2000],
+  ["Higher Learning", 1995],
+  ["Hitch", 2005],
+  ["Home Alone", 1990],
+  ["Home Alone 2: Lost in New York", 1992],
+  ["Hoosiers", 1986],
+  ["The Holiday", 2006],
+  ["I Am Legend", 2007],
+  ["The Ice Storm", 1997],
+  ["In the Line of Fire", 1993],
+  ["Inception", 2010],
+  ["Indecent Proposal", 1993],
+  ["Independence Day", 1996],
+  ["Indiana Jones and the Last Crusade", 1989],
+  ["Inglourious Basterds", 2009],
+  ["The Insider", 1999],
+  ["Inside Man", 2006],
+  ["Insidious", 2010],
+  ["Internal Affairs", 1990],
+  ["Iron Man", 2008],
+  ["It's Complicated", 2009],
+  ["JFK", 1991],
+  ["Jack Reacher", 2012],
+  ["Jaws", 1975],
+  ["Jaws 2", 1978],
+  ["Jeremiah Johnson", 1972],
+  ["Jerry Maguire", 1996],
+  ["John Wick", 2014],
+  ["John Wick: Chapter 2", 2017],
+  ["Juice", 1992],
+  ["Just One of the Guys", 1985],
+  ["Jurassic Park", 1993],
+  ["The Karate Kid", 1984],
+  ["Kindergarten Cop", 1990],
+  ["Knocked Up", 2007],
+  ["Kramer vs. Kramer", 1979],
+  ["L.A. Confidential", 1997],
+  ["The Last Boy Scout", 1991],
+  ["The Last Days of Disco", 1998],
+  ["The Last of the Mohicans", 1992],
+  ["The Legend of Billie Jean", 1985],
+  ["Legally Blonde", 2001],
+  ["Legends of the Fall", 1994],
+  ["Lethal Weapon", 1987],
+  ["Lethal Weapon 2", 1989],
+  ["Limitless", 2011],
+  ["The Longest Yard", 1974],
+  ["Lost in Translation", 2003],
+  ["Love & Basketball", 2000],
+  ["Mad Max: Fury Road", 2015],
+  ["Magic Mike", 2012],
+  ["Magnolia", 1999],
+  ["Major League", 1989],
+  ["Manchester by the Sea", 2016],
+  ["Manhunter", 1986],
+  ["Man on Fire", 2004],
+  ["Marathon Man", 1976],
+  ["Margin Call", 2011],
+  ["The Martian", 2015],
+  ["Mean Girls", 2004],
+  ["Meet the Parents", 2000],
+  ["Memento", 2000],
+  ["Miami Vice", 2006],
+  ["Michael Clayton", 2007],
+  ["Midnight Run", 1988],
+  ["Minority Report", 2002],
+  ["Miracle", 2004],
+  ["Misery", 1990],
+  ["Mission: Impossible", 1996],
+  ["Mission: Impossible - Fallout", 2018],
+  ["Moneyball", 2011],
+  ["Mr. & Mrs. Smith", 2005],
+  ["Mr. Holland's Opus", 1995],
+  ["Mrs. Doubtfire", 1993],
+  ["My Best Friend's Wedding", 1997],
+  ["My Cousin Vinny", 1992],
+  ["The Naked Gun", 1988],
+  ["National Lampoon's Christmas Vacation", 1989],
+  ["National Lampoon's Vacation", 1983],
+  ["The Natural", 1984],
+  ["Neighbors", 2014],
+  ["Never Been Kissed", 1999],
+  ["New Jack City", 1991],
+  ["The Nice Guys", 2016],
+  ["No Country for Old Men", 2007],
+  ["No Way Out", 1987],
+  ["The Notebook", 2004],
+  ["Notting Hill", 1999],
+  ["Ocean's Eleven", 2001],
+  ["Ocean's Twelve", 2004],
+  ["Office Space", 1999],
+  ["Old School", 2003],
+  ["The Omen", 1976],
+  ["Once Upon a Time... in Hollywood", 2019],
+  ["Ordinary People", 1980],
+  ["Out for Justice", 1991],
+  ["Out of Sight", 1998],
+  ["Over the Top", 1987],
+  ["Pacific Heights", 1990],
+  ["Panic Room", 2002],
+  ["Parenthood", 1989],
+  ["The Pelican Brief", 1993],
+  ["The Perfect Storm", 2000],
+  ["Philadelphia", 1993],
+  ["Pineapple Express", 2008],
+  ["Pitch Perfect", 2012],
+  ["The Player", 1992],
+  ["Planes, Trains and Automobiles", 1987],
+  ["Platoon", 1986],
+  ["Point Break", 1991],
+  ["Poltergeist", 1982],
+  ["Predator", 1987],
+  ["Primal Fear", 1996],
+  ["Proof of Life", 2000],
+  ["The Princess Bride", 1987],
+  ["Pretty Woman", 1990],
+  ["The Program", 1993],
+  ["Project X", 2012],
+  ["Pulp Fiction", 1994],
+  ["Pump Up the Volume", 1990],
+  ["The Purge", 2013],
+  ["Purple Rain", 1984],
+  ["Quiz Show", 1994],
+  ["Rachel Getting Married", 2008],
+  ["Raiders of the Lost Ark", 1981],
+  ["Rain Man", 1988],
+  ["Ransom", 1996],
+  ["Reality Bites", 1994],
+  ["Remember the Titans", 2000],
+  ["The Replacements", 2000],
+  ["Reservoir Dogs", 1992],
+  ["Risky Business", 1983],
+  ["Road House", 1989],
+  ["RoboCop", 1987],
+  ["Robin Hood: Prince of Thieves", 1991],
+  ["The Rock", 1996],
+  ["Rocky", 1976],
+  ["Rocky II", 1979],
+  ["Rocky III", 1982],
+  ["Rocky IV", 1985],
+  ["Rollerball", 1975],
+  ["Ronin", 1998],
+  ["Rounders", 1998],
+  ["The Royal Tenenbaums", 2001],
+  ["Rudy", 1993],
+  ["The Running Man", 1987],
+  ["Running Scared", 1986],
+  ["The Saint", 1997],
+  ["Saturday Night Fever", 1977],
+  ["Saving Private Ryan", 1998],
+  ["Say Anything...", 1989],
+  ["School Ties", 1992],
+  ["Scent of a Woman", 1992],
+  ["Scream", 1996],
+  ["Se7en", 1995],
+  ["Searching for Bobby Fischer", 1993],
+  ["Shampoo", 1975],
+  ["The Shawshank Redemption", 1994],
+  ["The Shining", 1980],
+  ["Shooter", 2007],
+  ["Shot Caller", 2017],
+  ["Sicario", 2015],
+  ["Sideways", 2004],
+  ["The Silence of the Lambs", 1991],
+  ["Silver Linings Playbook", 2012],
+  ["Singles", 1992],
+  ["Single White Female", 1992],
+  ["Sinners", 2025],
+  ["Sixteen Candles", 1984],
+  ["The Sixth Sense", 1999],
+  ["Skyfall", 2012],
+  ["Slap Shot", 1977],
+  ["Sleeping with the Enemy", 1991],
+  ["Sleepless in Seattle", 1993],
+  ["Snake Eyes", 1998],
+  ["Sneakers", 1992],
+  ["So I Married an Axe Murderer", 1993],
+  ["The Social Network", 2010],
+  ["Someone to Watch Over Me", 1987],
+  ["Species", 1995],
+  ["Speed", 1994],
+  ["Spider-Man", 2002],
+  ["Spotlight", 2015],
+  ["St. Elmo's Fire", 1985],
+  ["Stand by Me", 1986],
+  ["Star Wars", 1977],
+  ["Step Brothers", 2008],
+  ["The Sting", 1973],
+  ["Stripes", 1981],
+  ["Sudden Death", 1995],
+  ["Superbad", 2007],
+  ["The Sure Thing", 1985],
+  ["Swingers", 1996],
+  ["The Sandlot", 1993],
+  ["Taken", 2008],
+  ["The Talented Mr. Ripley", 1999],
+  ["Tango & Cash", 1989],
+  ["Taxi Driver", 1976],
+  ["Teen Wolf", 1985],
+  ["The Terminator", 1984],
+  ["Terminator 2: Judgment Day", 1991],
+  ["There Will Be Blood", 2007],
+  ["There's Something About Mary", 1998],
+  ["They Live", 1988],
+  ["Thief", 1981],
+  ["This Is the End", 2013],
+  ["Tin Cup", 1996],
+  ["Titanic", 1997],
+  ["To Live and Die in L.A.", 1985],
+  ["Tommy Boy", 1995],
+  ["Top Gun", 1986],
+  ["Top Gun: Maverick", 2022],
+  ["Total Recall", 1990],
+  ["Toy Soldiers", 1991],
+  ["Toy Story", 1995],
+  ["The Town", 2010],
+  ["Trading Places", 1983],
+  ["Training Day", 2001],
+  ["Trainspotting", 1996],
+  ["Tremors", 1990],
+  ["Tropic Thunder", 2008],
+  ["The Truman Show", 1998],
+  ["True Lies", 1994],
+  ["True Romance", 1993],
+  ["Two for the Money", 2005],
+  ["Twister", 1996],
+  ["Under Siege", 1992],
+  ["Unforgiven", 1992],
+  ["The Untouchables", 1987],
+  ["Unstoppable", 2010],
+  ["The Usual Suspects", 1995],
+  ["The Vanishing", 1993],
+  ["Varsity Blues", 1999],
+  ["The Verdict", 1982],
+  ["Vision Quest", 1985],
+  ["Wall Street", 1987],
+  ["The War of the Roses", 1989],
+  ["Warrior", 2011],
+  ["The Warriors", 1979],
+  ["Wayne's World", 1992],
+  ["Wedding Crashers", 2005],
+  ["Weird Science", 1985],
+  ["What About Bob?", 1991],
+  ["What Lies Beneath", 2000],
+  ["When Harry Met Sally...", 1989],
+  ["Whiplash", 2014],
+  ["While You Were Sleeping", 1995],
+  ["White Men Can't Jump", 1992],
+  ["Wild Things", 1998],
+  ["Witness", 1985],
+  ["The Wolf of Wall Street", 2013],
+  ["Working Girl", 1988],
+  ["You've Got Mail", 1998],
+  ["Zodiac", 2007],
 ];
 
-const BADGE_LABELS = {N:"Netflix",P:"Prime",M:"Max",H:"Hulu",D:"Disney+",PC:"Paramount+",PK:"Peacock",T:"Tubi",PL:"Pluto TV",X:"Not Streaming"};
-
-// Deduplicate
 const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[0].localeCompare(b[0]));
 
-// Load watched state
+function appleLink(title) {
+  const q = encodeURIComponent('The Rewatchables ' + title);
+  return `https://podcasts.apple.com/search?term=${q}`;
+}
+
 let watched = {};
 try {
   const saved = localStorage.getItem('rewatchables_v3');
@@ -779,15 +787,15 @@ function updateStats(list) {
   document.getElementById('prog-label').textContent = `${wc} of ${total} watched`;
 }
 
+const podMicSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`;
+
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
-  const fs = document.getElementById('filter-stream').value;
   const fw = document.getElementById('filter-watch').value;
   const so = document.getElementById('filter-sort').value;
 
   let list = [...FILMS];
   if (q) list = list.filter(m => m[0].toLowerCase().includes(q));
-  if (fs) list = list.filter(m => fs === 'X' ? m[2].includes('X') : m[2].includes(fs));
   if (fw === 'w') list = list.filter(m => watched[m[0]+m[1]]);
   if (fw === 'u') list = list.filter(m => !watched[m[0]+m[1]]);
 
@@ -797,7 +805,6 @@ function render() {
   else list.sort((a,b) => a[0].localeCompare(b[0]));
 
   updateStats(list);
-
   document.getElementById('results-count').textContent = list.length !== FILMS.length ? `${list.length} results` : '';
 
   const container = document.getElementById('movie-list');
@@ -814,16 +821,18 @@ function render() {
     const key = m[0] + m[1];
     const isW = !!watched[key];
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    const badges = m[2].map(s => `<span class="badge ${s}">${BADGE_LABELS[s]||s}</span>`).join('');
+    const link = appleLink(m[0]);
     return `<div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
       <div class="checkbox">
-        <svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
       </div>
       <div class="movie-info">
         <div class="movie-title">${m[0]}</div>
         <div class="movie-year">${m[1]}</div>
       </div>
-      <div class="badges">${badges}</div>
+      <a class="listen-btn" href="${link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+        ${podMicSVG} Listen Now
+      </a>
     </div>`;
   }).join('');
 }
