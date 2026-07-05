@@ -148,7 +148,6 @@
   .movie-row.watched { opacity: 0.4; }
   .movie-row.watched .movie-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
 
-  /* Original-style checkbox: neutral grey, not green */
   .checkbox {
     width: 20px;
     height: 20px;
@@ -170,7 +169,6 @@
   .movie-row.watched .check-svg { display: block; }
 
   .movie-info { flex: 1; min-width: 0; }
-  /* Original-style text: white title, grey year */
   .movie-title { font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .movie-year { font-size: 12px; color: #888; margin-top: 1px; }
 
@@ -296,8 +294,6 @@
 </div>
 
 <script>
-// FORMAT: ["Title", year]
-// TO ADD A NEW MOVIE: add a new line in the same format with a comma at the end.
 const MOVIES = [
   ["10 Things I Hate About You", 1999],
   ["2001: A Space Odyssey", 1968],
@@ -748,6 +744,11 @@ const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[
 
   const EPISODE_LINKS = {
     "10 Things I Hate About You1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000399427775",
+    "2001: A Space Odyssey1968": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000770486102",
+    "25th Hour2002": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000485150347",
+    "The 40-Year-Old Virgin2005": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000489111386",
+    "48 Hrs.1982": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000396669610",
+    "8MM1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000500022316",
 };
 
 function appleLink(title, year) {
