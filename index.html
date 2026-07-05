@@ -823,7 +823,7 @@ function render() {
     const key = m[0] + m[1];
     const isW = !!watched[key];
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    const link = appleLink(m[0]);
+    const link = appleLink(m[0], m[1]);
     return `<div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
       <div class="checkbox">
         <svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
