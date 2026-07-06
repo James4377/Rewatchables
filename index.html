@@ -28,207 +28,74 @@
     min-height: 100vh;
   }
   .container { max-width: 860px; margin: 0 auto; padding: 0 20px 60px; }
-
-  header {
-    padding: 36px 0 24px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-  }
-  .header-inner {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .header-logo {
-    width: 72px;
-    height: 72px;
-    border-radius: 14px;
-    flex-shrink: 0;
-    object-fit: cover;
-    box-shadow: 0 0 14px rgba(62,207,142,0.25);
-  }
+  header { padding: 36px 0 24px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  .header-inner { display: flex; align-items: center; gap: 20px; }
+  .header-logo { width: 72px; height: 72px; border-radius: 14px; flex-shrink: 0; object-fit: cover; box-shadow: 0 0 14px rgba(62,207,142,0.25); }
   .header-text h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
   .header-text h1 span { color: var(--accent); }
   .header-text p { font-size: 13px; color: var(--text-muted); margin-top: 5px; }
   .last-updated { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  .stat {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 14px 16px;
-  }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
   .stat .num { font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; }
   .stat .lbl { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
   .stat.highlight .num { color: var(--accent); }
-
   .progress-wrap { margin-bottom: 24px; }
-  .progress-bar {
-    background: var(--surface2);
-    border-radius: 4px;
-    height: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-bright));
-    border-radius: 4px;
-    transition: width 0.4s ease;
-    box-shadow: 0 0 8px rgba(62, 207, 142, 0.4);
-  }
+  .progress-bar { background: var(--surface2); border-radius: 4px; height: 6px; overflow: hidden; border: 1px solid var(--border); }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-bright)); border-radius: 4px; transition: width 0.4s ease; box-shadow: 0 0 8px rgba(62,207,142,0.4); }
   .progress-label { font-size: 11px; color: var(--text-dim); margin-top: 5px; text-align: right; }
-
-  .controls {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-    align-items: center;
-  }
+  .controls { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
   .search-wrap { flex: 1; min-width: 180px; position: relative; }
   .search-wrap svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
-  input[type="text"] {
-    width: 100%;
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    color: var(--text);
-    font-size: 14px;
-    padding: 9px 12px 9px 34px;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  input[type="text"]:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(62, 207, 142, 0.15);
-  }
+  input[type="text"] { width: 100%; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); color: var(--text); font-size: 14px; padding: 9px 12px 9px 34px; outline: none; transition: border-color 0.15s, box-shadow 0.15s; }
+  input[type="text"]:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(62,207,142,0.15); }
   input[type="text"]::placeholder { color: var(--text-dim); }
-  select {
-    background: var(--surface);
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    color: var(--text);
-    font-size: 13px;
-    padding: 9px 12px;
-    outline: none;
-    cursor: pointer;
-    transition: border-color 0.15s;
-    appearance: none;
-    -webkit-appearance: none;
-    padding-right: 28px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6a4a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 8px center;
-  }
+  select { background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius); color: var(--text); font-size: 13px; padding: 9px 12px; outline: none; cursor: pointer; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; padding-right: 28px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234a6a4a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; }
   select:focus { border-color: var(--accent); }
   .results-count { font-size: 12px; color: var(--text-dim); white-space: nowrap; padding: 9px 4px; }
-
   .movie-list { display: flex; flex-direction: column; gap: 0; }
-  .movie-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: background 0.1s;
-    border-bottom: 1px solid var(--border);
-    user-select: none;
-  }
+  .movie-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius); cursor: pointer; transition: background 0.1s; border-bottom: 1px solid var(--border); user-select: none; position: relative; }
   .movie-row:last-child { border-bottom: none; }
   .movie-row:hover { background: var(--surface); }
   .movie-row:active { background: var(--surface2); }
   .movie-row.watched { opacity: 0.4; }
   .movie-row.watched .movie-title { text-decoration: line-through; text-decoration-color: var(--text-muted); }
-
-  .checkbox {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid #3d3d3d;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.15s;
-    background: transparent;
-  }
-  .movie-row.watched .checkbox {
-    background: var(--accent);
-    border-color: var(--accent);
-    box-shadow: 0 0 6px rgba(62, 207, 142, 0.5);
-  }
+  .checkbox { width: 20px; height: 20px; border: 1.5px solid #3d3d3d; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; background: transparent; }
+  .movie-row.watched .checkbox { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 6px rgba(62,207,142,0.5); }
   .check-svg { display: none; }
   .movie-row.watched .check-svg { display: block; }
-
   .movie-info { flex: 1; min-width: 0; }
   .movie-title { font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .movie-year { font-size: 12px; color: #888; margin-top: 1px; }
 
-  .listen-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    background: transparent;
-    color: var(--accent);
-    border: 1.5px solid var(--accent);
-    text-decoration: none;
-    flex-shrink: 0;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-    cursor: pointer;
-  }
-  .listen-btn:hover {
-    background: var(--accent);
-    color: #0a0a0a;
-    box-shadow: 0 0 10px rgba(62, 207, 142, 0.4);
-  }
+  /* Single listen button */
+  .listen-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); text-decoration: none; flex-shrink: 0; transition: background 0.15s, color 0.15s, box-shadow 0.15s; cursor: pointer; }
+  .listen-btn:hover { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
   .listen-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
+
+  /* Dropdown listen button */
+  .listen-wrap { position: relative; flex-shrink: 0; }
+  .listen-drop-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); cursor: pointer; transition: background 0.15s, color 0.15s, box-shadow 0.15s; }
+  .listen-drop-btn:hover, .listen-wrap.open .listen-drop-btn { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
+  .listen-drop-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
+  .caret { font-size: 8px; margin-left: 1px; }
+  .dropdown-menu { display: none; position: absolute; right: 0; top: calc(100% + 5px); background: #1a241a; border: 1.5px solid var(--accent); border-radius: var(--radius); overflow: hidden; z-index: 100; min-width: 130px; box-shadow: 0 4px 16px rgba(0,0,0,0.5); }
+  .listen-wrap.open .dropdown-menu { display: block; }
+  .dropdown-menu a { display: block; padding: 8px 14px; font-size: 12px; color: var(--text); text-decoration: none; white-space: nowrap; transition: background 0.1s, color 0.1s; }
+  .dropdown-menu a:hover { background: var(--accent); color: #0a0a0a; }
+  .dropdown-menu a + a { border-top: 1px solid var(--border); }
 
   .no-results { padding: 48px; text-align: center; color: var(--text-muted); font-size: 14px; }
   .no-results p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
-
-  footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border);
-    font-size: 11px;
-    color: var(--text-dim);
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 600px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .header-logo { width: 54px; height: 54px; }
-    .header-text h1 { font-size: 20px; }
-    .stat .num { font-size: 22px; }
-  }
+  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-dim); text-align: center; line-height: 1.6; }
+  @media (max-width: 600px) { .stats { grid-template-columns: repeat(2, 1fr); } .header-logo { width: 54px; height: 54px; } .header-text h1 { font-size: 20px; } .stat .num { font-size: 22px; } }
 </style>
 </head>
 <body>
 <div class="container">
   <header>
     <div class="header-inner">
-      <img
-        class="header-logo"
-        src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/ff/3f/26/ff3f2602-efee-3877-b8c2-05377cf14090/mza_1802934075401834186.jpg/600x600bb.jpg"
-        alt="The Rewatchables podcast logo"
-        onerror="this.style.display='none'"
-      >
+      <img class="header-logo" src="https://is1-ssl.mzstatic.com/image/thumb/Podcasts126/v4/ff/3f/26/ff3f2602-efee-3877-b8c2-05377cf14090/mza_1802934075401834186.jpg/600x600bb.jpg" alt="The Rewatchables podcast logo" onerror="this.style.display='none'">
       <div class="header-text">
         <h1>The <span>Rewatchables</span> Tracker</h1>
         <p>All films featured on The Ringer's podcast with Bill Simmons</p>
@@ -236,19 +103,16 @@
       </div>
     </div>
   </header>
-
   <div class="stats">
     <div class="stat"><div class="num" id="st-total">0</div><div class="lbl">Total Films</div></div>
     <div class="stat highlight"><div class="num" id="st-watched">0</div><div class="lbl">Watched</div></div>
     <div class="stat"><div class="num" id="st-remain">0</div><div class="lbl">Remaining</div></div>
     <div class="stat"><div class="num" id="st-pct">0%</div><div class="lbl">Complete</div></div>
   </div>
-
   <div class="progress-wrap">
     <div class="progress-bar"><div class="progress-fill" id="prog" style="width:0%"></div></div>
     <div class="progress-label" id="prog-label">0 of 0 watched</div>
   </div>
-
   <div class="controls">
     <div class="search-wrap">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -267,13 +131,11 @@
     </select>
     <span class="results-count" id="results-count"></span>
   </div>
-
   <div class="movie-list" id="movie-list"></div>
   <div class="no-results" id="no-results" style="display:none">
     <div>No films found</div>
     <p>Try adjusting your search or filters</p>
   </div>
-
   <footer>
     The Rewatchables is a podcast from The Ringer with Bill Simmons.<br>
     Progress saved in your browser's local storage · Last updated: June 2026
@@ -281,6 +143,457 @@
 </div>
 
 <script>
+const SHOW_URL = "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882";
+
+const EPISODE_LINKS = {
+  "10 Things I Hate About You1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000399427775",
+  "2001: A Space Odyssey1968": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000770486102",
+  "25th Hour2002": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000485150347",
+  "The 40-Year-Old Virgin2005": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000489111386",
+  "48 Hrs.1982": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000396669610",
+  "8MM1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000500022316",
+  "Above the Rim1994": "",
+  "Ace Ventura: Pet Detective1994": "",
+  "Adventureland2009": "",
+  "After Hours1985": "",
+  "Airplane!1980": "",
+  "Alien1979": "",
+  "Alive1993": "",
+  "All the President's Men1976": "",
+  "Along Came Polly2004": "",
+  "American Gangster2007": "",
+  "American Gigolo1980": "",
+  "American Pie1999": "",
+  "The American President1995": "",
+  "An Officer and a Gentleman1982": "",
+  "Animal House1978": "",
+  "Another 48 Hrs.1990": "",
+  "Any Given Sunday1999": "",
+  "Argo2012": "",
+  "Armageddon1998": "",
+  "Austin Powers: International Man of Mystery1997": "",
+  "Austin Powers: The Spy Who Shagged Me1999": "",
+  "A Bronx Tale1993": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000628361260",
+  "A Few Good Men1992": [
+    { label: "Episode 1", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000390875201" },
+    { label: "Episode 2", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000623006921" },
+  ],
+  "A League of Their Own1992": "",
+  "A Star Is Born2018": "",
+  "A Time to Kill1996": "",
+  "Back to the Future1985": "",
+  "Back to the Future Part II1989": "",
+  "Bad Boys1995": "",
+  "The Bad News Bears1976": "",
+  "Basic Instinct1992": "",
+  "Batman1989": "",
+  "Before Sunrise1995": "",
+  "Before Sunset2004": "",
+  "Best in Show2000": "",
+  "Beverly Hills Cop1984": "",
+  "Beverly Hills Cop II1987": "",
+  "Big1988": "",
+  "Big Daddy1999": "",
+  "The Big Chill1983": "",
+  "The Big Lebowski1998": "",
+  "Blackhat2015": "",
+  "The Blair Witch Project1999": "",
+  "Blood Diamond2006": "",
+  "Bloodsport1988": "",
+  "Blow2001": "",
+  "Blow Out1981": "",
+  "Blue Chips1994": "",
+  "The Blues Brothers1980": "",
+  "Body Double1984": "",
+  "Body Heat1981": "",
+  "The Bodyguard1992": "",
+  "Boogie Nights1997": "",
+  "Boomerang1992": "",
+  "Borat2006": "",
+  "The Bourne Identity2002": "",
+  "Boyz n the Hood1991": "",
+  "Braveheart1995": "",
+  "The Breakfast Club1985": "",
+  "Breaking Away1979": "",
+  "Bridesmaids2011": "",
+  "Broadcast News1987": "",
+  "Brokeback Mountain2005": "",
+  "Bull Durham1988": "",
+  "Burn After Reading2008": "",
+  "Butch Cassidy and the Sundance Kid1969": "",
+  "Caddyshack1980": "",
+  "Can't Buy Me Love1987": "",
+  "Can't Hardly Wait1998": "",
+  "Cape Fear1991": "",
+  "Casino1995": "",
+  "Casino Royale2006": "",
+  "Cast Away2000": "",
+  "Catch Me If You Can2002": "",
+  "Chef2014": "",
+  "City Slickers1991": "",
+  "Clear and Present Danger1994": "",
+  "Cliffhanger1993": "",
+  "Close Encounters of the Third Kind1977": "",
+  "Clueless1995": "",
+  "Cobra1986": "",
+  "Cocktail1988": "",
+  "Collateral2004": "",
+  "The Color of Money1986": "",
+  "Coming to America1988": "",
+  "Commando1985": "",
+  "Con Air1997": "",
+  "Contagion2011": "",
+  "Cop Land1997": "",
+  "The Conjuring2013": "",
+  "Crash2004": "",
+  "Crazy, Stupid, Love.2011": "",
+  "Creed2015": "",
+  "Crimson Tide1995": "",
+  "Cruel Intentions1999": "",
+  "Cruising1980": "",
+  "Dangerous Minds1995": "",
+  "The Dark Knight2008": "",
+  "Dave1993": "",
+  "Days of Thunder1990": "",
+  "Dazed and Confused1993": "",
+  "Dead Poets Society1989": "",
+  "Death Wish1974": "",
+  "Deliverance1972": "",
+  "Den of Thieves2018": "",
+  "The Departed2006": "",
+  "The Devil Wears Prada2006": "",
+  "The Devil's Advocate1997": "",
+  "Die Hard1988": "",
+  "Die Hard 21990": "",
+  "Die Hard With a Vengeance1995": "",
+  "Disclosure1994": "",
+  "Do the Right Thing1989": "",
+  "Dodgeball: A True Underdog Story2004": "",
+  "Domestic Disturbance2001": "",
+  "The Doors1991": "",
+  "Draft Day2014": "",
+  "Dumb and Dumber1994": "",
+  "Dunkirk2017": "",
+  "The Edge1997": "",
+  "E.T. the Extra-Terrestrial1982": "",
+  "Easy A2010": "",
+  "Eddie and the Cruisers1983": "",
+  "Edge of Tomorrow2014": "",
+  "Election1999": "",
+  "Enemy of the State1998": "",
+  "The Equalizer2014": "",
+  "Escape from New York1981": "",
+  "Escape to Victory1981": "",
+  "The Exorcist1973": "",
+  "Eyes Wide Shut1999": "",
+  "F12025": "",
+  "Face/Off1997": "",
+  "Fargo1996": "",
+  "Fast & Furious2009": "",
+  "The Fast and the Furious2001": "",
+  "Fast Five2011": "",
+  "Fast Times at Ridgemont High1982": "",
+  "Fatal Attraction1987": "",
+  "Father of the Bride1991": "",
+  "Ferris Bueller's Day Off1986": "",
+  "The Firm1993": "",
+  "Field of Dreams1989": "",
+  "Fight Club1999": "",
+  "First Blood1982": "",
+  "Fletch1985": "",
+  "Flight2012": "",
+  "Focus2015": "",
+  "For Love of the Game1999": "",
+  "Forgetting Sarah Marshall2008": "",
+  "Forrest Gump1994": "",
+  "Friday1995": "",
+  "Friday Night Lights2004": "",
+  "The Fugitive1993": "",
+  "Furious 72015": "",
+  "The Game1997": "",
+  "Get Out2017": "",
+  "Ghost1990": "",
+  "Ghostbusters1984": "",
+  "Gladiator2000": "",
+  "Glengarry Glen Ross1992": "",
+  "GoldenEye1995": "",
+  "The Godfather1972": "",
+  "The Godfather Part II1974": "",
+  "The Godfather Part III1990": "",
+  "Gone Girl2014": "",
+  "Good Will Hunting1997": "",
+  "GoodFellas1990": "",
+  "The Good Son1993": "",
+  "The Grand Budapest Hotel2014": "",
+  "Grease1978": "",
+  "Groundhog Day1993": "",
+  "Halloween1978": "",
+  "Halloween II1981": "",
+  "The Hand That Rocks the Cradle1992": "",
+  "The Hangover2009": "",
+  "Happy Gilmore1996": "",
+  "Hardcore1979": "",
+  "Hard to Kill1990": "",
+  "He Got Game1998": "",
+  "Heat1995": "",
+  "Heaven Can Wait1978": "",
+  "Hereditary2018": "",
+  "High Fidelity2000": "",
+  "Higher Learning1995": "",
+  "Hitch2005": "",
+  "Home Alone1990": "",
+  "Home Alone 2: Lost in New York1992": "",
+  "Hoosiers1986": "",
+  "The Holiday2006": "",
+  "I Am Legend2007": "",
+  "The Ice Storm1997": "",
+  "In the Line of Fire1993": "",
+  "Inception2010": "",
+  "Indecent Proposal1993": "",
+  "Independence Day1996": "",
+  "Indiana Jones and the Last Crusade1989": "",
+  "Inglourious Basterds2009": "",
+  "The Insider1999": "",
+  "Inside Man2006": "",
+  "Insidious2010": "",
+  "Internal Affairs1990": "",
+  "Iron Man2008": "",
+  "It's Complicated2009": "",
+  "JFK1991": "",
+  "Jack Reacher2012": "",
+  "Jaws1975": "",
+  "Jaws 21978": "",
+  "Jeremiah Johnson1972": "",
+  "Jerry Maguire1996": "",
+  "John Wick2014": "",
+  "John Wick: Chapter 22017": "",
+  "Juice1992": "",
+  "Just One of the Guys1985": "",
+  "Jurassic Park1993": "",
+  "The Karate Kid1984": "",
+  "Kindergarten Cop1990": "",
+  "Knocked Up2007": "",
+  "Kramer vs. Kramer1979": "",
+  "L.A. Confidential1997": "",
+  "The Last Boy Scout1991": "",
+  "The Last Days of Disco1998": "",
+  "The Last of the Mohicans1992": "",
+  "The Legend of Billie Jean1985": "",
+  "Legally Blonde2001": "",
+  "Legends of the Fall1994": "",
+  "Lethal Weapon1987": "",
+  "Lethal Weapon 21989": "",
+  "Limitless2011": "",
+  "The Longest Yard1974": "",
+  "Lost in Translation2003": "",
+  "Love & Basketball2000": "",
+  "Mad Max: Fury Road2015": "",
+  "Magic Mike2012": "",
+  "Magnolia1999": "",
+  "Major League1989": "",
+  "Manchester by the Sea2016": "",
+  "Manhunter1986": "",
+  "Man on Fire2004": "",
+  "Marathon Man1976": "",
+  "Margin Call2011": "",
+  "The Martian2015": "",
+  "Mean Girls2004": "",
+  "Meet the Parents2000": "",
+  "Memento2000": "",
+  "Miami Vice2006": "",
+  "Michael Clayton2007": "",
+  "Midnight Run1988": "",
+  "Minority Report2002": "",
+  "Miracle2004": "",
+  "Misery1990": "",
+  "Mission: Impossible1996": "",
+  "Mission: Impossible - Fallout2018": "",
+  "Moneyball2011": "",
+  "Mr. & Mrs. Smith2005": "",
+  "Mr. Holland's Opus1995": "",
+  "Mrs. Doubtfire1993": "",
+  "My Best Friend's Wedding1997": "",
+  "My Cousin Vinny1992": "",
+  "The Naked Gun1988": "",
+  "National Lampoon's Christmas Vacation1989": "",
+  "National Lampoon's Vacation1983": "",
+  "The Natural1984": "",
+  "Neighbors2014": "",
+  "Never Been Kissed1999": "",
+  "New Jack City1991": "",
+  "The Nice Guys2016": "",
+  "No Country for Old Men2007": "",
+  "No Way Out1987": "",
+  "The Notebook2004": "",
+  "Notting Hill1999": "",
+  "Ocean's Eleven2001": "",
+  "Ocean's Twelve2004": "",
+  "Office Space1999": "",
+  "Old School2003": "",
+  "The Omen1976": "",
+  "Once Upon a Time... in Hollywood2019": "",
+  "Ordinary People1980": "",
+  "Out for Justice1991": "",
+  "Out of Sight1998": "",
+  "Over the Top1987": "",
+  "Pacific Heights1990": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000774779611",
+  "Panic Room2002": "",
+  "Parenthood1989": "",
+  "The Pelican Brief1993": "",
+  "The Perfect Storm2000": "",
+  "Philadelphia1993": "",
+  "Pineapple Express2008": "",
+  "Pitch Perfect2012": "",
+  "The Player1992": "",
+  "Planes, Trains and Automobiles1987": "",
+  "Platoon1986": "",
+  "Point Break1991": "",
+  "Poltergeist1982": "",
+  "Predator1987": "",
+  "Primal Fear1996": "",
+  "Proof of Life2000": "",
+  "The Princess Bride1987": "",
+  "Pretty Woman1990": "",
+  "The Program1993": "",
+  "Project X2012": "",
+  "Pulp Fiction1994": "",
+  "Pump Up the Volume1990": "",
+  "The Purge2013": "",
+  "Purple Rain1984": "",
+  "Quiz Show1994": "",
+  "Rachel Getting Married2008": "",
+  "Raiders of the Lost Ark1981": "",
+  "Rain Man1988": "",
+  "Ransom1996": "",
+  "Reality Bites1994": "",
+  "Remember the Titans2000": "",
+  "The Replacements2000": "",
+  "Reservoir Dogs1992": "",
+  "Risky Business1983": "",
+  "Road House1989": "",
+  "RoboCop1987": "",
+  "Robin Hood: Prince of Thieves1991": "",
+  "The Rock1996": "",
+  "Rocky1976": "",
+  "Rocky II1979": "",
+  "Rocky III1982": "",
+  "Rocky IV1985": "",
+  "Rollerball1975": "",
+  "Ronin1998": "",
+  "Rounders1998": "",
+  "The Royal Tenenbaums2001": "",
+  "Rudy1993": "",
+  "The Running Man1987": "",
+  "Running Scared1986": "",
+  "The Saint1997": "",
+  "Saturday Night Fever1977": "",
+  "Saving Private Ryan1998": "",
+  "Say Anything...1989": "",
+  "School Ties1992": "",
+  "Scent of a Woman1992": "",
+  "Scream1996": "",
+  "Se7en1995": "",
+  "Searching for Bobby Fischer1993": "",
+  "Shampoo1975": "",
+  "The Shawshank Redemption1994": "",
+  "The Shining1980": "",
+  "Shooter2007": "",
+  "Shot Caller2017": "",
+  "Sicario2015": "",
+  "Sideways2004": "",
+  "The Silence of the Lambs1991": "",
+  "Silver Linings Playbook2012": "",
+  "Singles1992": "",
+  "Single White Female1992": "",
+  "Sinners2025": "",
+  "Sixteen Candles1984": "",
+  "The Sixth Sense1999": "",
+  "Skyfall2012": "",
+  "Slap Shot1977": "",
+  "Sleeping with the Enemy1991": "",
+  "Sleepless in Seattle1993": "",
+  "Snake Eyes1998": "",
+  "Sneakers1992": "",
+  "So I Married an Axe Murderer1993": "",
+  "The Social Network2010": "",
+  "Someone to Watch Over Me1987": "",
+  "Species1995": "",
+  "Speed1994": "",
+  "Spider-Man2002": "",
+  "Spotlight2015": "",
+  "St. Elmo's Fire1985": "",
+  "Stand by Me1986": "",
+  "Star Wars1977": "",
+  "Step Brothers2008": "",
+  "The Sting1973": "",
+  "Stripes1981": "",
+  "Sudden Death1995": "",
+  "Superbad2007": "",
+  "The Sure Thing1985": "",
+  "Swingers1996": "",
+  "The Sandlot1993": "",
+  "Taken2008": "",
+  "The Talented Mr. Ripley1999": "",
+  "Tango & Cash1989": "",
+  "Taxi Driver1976": "",
+  "Teen Wolf1985": "",
+  "The Terminator1984": "",
+  "Terminator 2: Judgment Day1991": "",
+  "There Will Be Blood2007": "",
+  "There's Something About Mary1998": "",
+  "They Live1988": "",
+  "Thief1981": "",
+  "This Is the End2013": "",
+  "Tin Cup1996": "",
+  "Titanic1997": "",
+  "To Live and Die in L.A.1985": "",
+  "Tommy Boy1995": "",
+  "Top Gun1986": "",
+  "Top Gun: Maverick2022": "",
+  "Total Recall1990": "",
+  "Toy Soldiers1991": "",
+  "Toy Story1995": "",
+  "The Town2010": "",
+  "Trading Places1983": "",
+  "Training Day2001": "",
+  "Trainspotting1996": "",
+  "Tremors1990": "",
+  "Tropic Thunder2008": "",
+  "The Truman Show1998": "",
+  "True Lies1994": "",
+  "True Romance1993": "",
+  "Two for the Money2005": "",
+  "Twister1996": "",
+  "Under Siege1992": "",
+  "Unforgiven1992": "",
+  "The Untouchables1987": "",
+  "Unstoppable2010": "",
+  "The Usual Suspects1995": "",
+  "The Vanishing1993": "",
+  "Varsity Blues1999": "",
+  "The Verdict1982": "",
+  "Vision Quest1985": "",
+  "Wall Street1987": "",
+  "The War of the Roses1989": "",
+  "Warrior2011": "",
+  "The Warriors1979": "",
+  "Wayne's World1992": "",
+  "Wedding Crashers2005": "",
+  "Weird Science1985": "",
+  "What About Bob?1991": "",
+  "What Lies Beneath2000": "",
+  "When Harry Met Sally...1989": "",
+  "Whiplash2014": "",
+  "While You Were Sleeping1995": "",
+  "White Men Can't Jump1992": "",
+  "Wild Things1998": "",
+  "Witness1985": "",
+  "The Wolf of Wall Street2013": "",
+  "Working Girl1988": "",
+  "You've Got Mail1998": "",
+  "Zodiac2007": "",
+};
+
 const MOVIES = [
   ["10 Things I Hate About You", 1999],
   ["2001: A Space Odyssey", 1968],
@@ -729,24 +1042,43 @@ const MOVIES = [
 
 const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[0].localeCompare(b[0]));
 
-  const EPISODE_LINKS = {
-    "10 Things I Hate About You1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000399427775",
-    "2001: A Space Odyssey1968": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000770486102",
-    "25th Hour2002": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000485150347",
-    "The 40-Year-Old Virgin2005": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000489111386",
-    "48 Hrs.1982": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000396669610",
-    "8MM1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000500022316",
-    "A Bronx Tale1993": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000628361260",
-    "A Few Good Men1992": [
-  { label: "Episode 1", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000390875201" },
-  { label: "Episode 2", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000623006921" },
-], 
+const podMicSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`;
 
+function buildListenBtn(title, year) {
+  const key = title + year;
+  const entry = EPISODE_LINKS[key];
+
+  // No link yet — go to show page
+  if (!entry || entry === "") {
+    return `<a class="listen-btn" href="${SHOW_URL}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${podMicSVG} Listen Now</a>`;
   }
 
-function appleLink(title, year) {
-  return EPISODE_LINKS[title+year] || "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882";
+  // Single episode link
+  if (typeof entry === "string") {
+    return `<a class="listen-btn" href="${entry}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${podMicSVG} Listen Now</a>`;
+  }
+
+  // Multiple episodes — dropdown
+  const safeKey = key.replace(/[^a-zA-Z0-9]/g, '_');
+  const items = entry.map(e => `<a href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${e.label}</a>`).join('');
+  return `<div class="listen-wrap" id="wrap_${safeKey}" onclick="event.stopPropagation()">
+    <div class="listen-drop-btn" onclick="toggleDrop('wrap_${safeKey}', event)">${podMicSVG} Listen Now <span class="caret">▾</span></div>
+    <div class="dropdown-menu">${items}</div>
+  </div>`;
 }
+
+function toggleDrop(id, e) {
+  e.stopPropagation();
+  const el = document.getElementById(id);
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.listen-wrap.open').forEach(w => w.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('.listen-wrap.open').forEach(w => w.classList.remove('open'));
+});
+
 let watched = {};
 try {
   const saved = localStorage.getItem('rewatchables_v3');
@@ -774,8 +1106,6 @@ function updateStats(list) {
   document.getElementById('prog').style.width = total ? Math.round(wc/total*100)+'%' : '0%';
   document.getElementById('prog-label').textContent = `${wc} of ${total} watched`;
 }
-
-const podMicSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`;
 
 function render() {
   const q = document.getElementById('search').value.toLowerCase();
@@ -809,7 +1139,6 @@ function render() {
     const key = m[0] + m[1];
     const isW = !!watched[key];
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    const link = appleLink(m[0], m[1]);
     return `<div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
       <div class="checkbox">
         <svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -818,9 +1147,7 @@ function render() {
         <div class="movie-title">${m[0]}</div>
         <div class="movie-year">${m[1]}</div>
       </div>
-      <a class="listen-btn" href="${link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-        ${podMicSVG} Listen Now
-      </a>
+      ${buildListenBtn(m[0], m[1])}
     </div>`;
   }).join('');
 }
