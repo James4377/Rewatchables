@@ -201,18 +201,6 @@
   .no-results { padding: 48px; text-align: center; color: var(--text-muted); font-size: 14px; }
   .no-results p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
 
-  .reset-btn {
-    background: none;
-    border: 1px solid var(--border-strong);
-    border-radius: var(--radius);
-    color: var(--text-muted);
-    font-size: 12px;
-    padding: 9px 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .reset-btn:hover { border-color: #c0392b; color: #e74c3c; }
-
   footer {
     margin-top: 40px;
     padding-top: 20px;
@@ -277,7 +265,6 @@
       <option value="yn">By year (new→old)</option>
       <option value="w">Watched first</option>
     </select>
-    <button class="reset-btn" onclick="resetAll()">Reset all</button>
     <span class="results-count" id="results-count"></span>
   </div>
 
@@ -749,7 +736,11 @@ const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[
     "The 40-Year-Old Virgin2005": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000489111386",
     "48 Hrs.1982": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000396669610",
     "8MM1999": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000500022316",
-};
+    "A Bronx Tale1993": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000628361260",
+    "A Few Good Men1992": [
+  { label: "Episode 1", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000390875201" },
+  { label: "Episode 2", url: "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000623006921" },
+], 
 
 function appleLink(title, year) {
   return EPISODE_LINKS[title+year] || "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882";
@@ -769,14 +760,6 @@ function toggle(key) {
   if (!watched[key]) delete watched[key];
   save();
   render();
-}
-
-function resetAll() {
-  if (confirm('Reset all watched progress? This cannot be undone.')) {
-    watched = {};
-    save();
-    render();
-  }
 }
 
 function updateStats(list) {
