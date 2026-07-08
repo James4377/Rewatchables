@@ -68,12 +68,10 @@
   .movie-title { font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .movie-year { font-size: 12px; color: #888; margin-top: 1px; }
 
-  /* Single listen button */
   .listen-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); text-decoration: none; flex-shrink: 0; transition: background 0.15s, color 0.15s, box-shadow 0.15s; cursor: pointer; }
   .listen-btn:hover { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
   .listen-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
 
-  /* Dropdown listen button */
   .listen-wrap { position: relative; flex-shrink: 0; }
   .listen-drop-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); cursor: pointer; transition: background 0.15s, color 0.15s, box-shadow 0.15s; }
   .listen-drop-btn:hover, .listen-wrap.open .listen-drop-btn { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
@@ -99,7 +97,7 @@
       <div class="header-text">
         <h1>The <span>Rewatchables</span> Tracker</h1>
         <p>All films featured on The Ringer's podcast with Bill Simmons</p>
-        <p class="last-updated">Updated through June 2026</p>
+        <p class="last-updated">Updated through July 2026</p>
       </div>
     </div>
   </header>
@@ -138,7 +136,7 @@
   </div>
   <footer>
     The Rewatchables is a podcast from The Ringer with Bill Simmons.<br>
-    Progress saved in your browser's local storage · Last updated: June 2026
+    Progress saved in your browser's local storage · Last updated: July 2026
   </footer>
 </div>
 
@@ -225,7 +223,6 @@ const MOVIES = [
   ["Catch Me If You Can", 2002],
   ["Chef", 2014],
   ["City Slickers", 1991],
-  ["Clear and Present Danger", 1994],
   ["Cliffhanger", 1993],
   ["Close Encounters of the Third Kind", 1977],
   ["Clueless", 1995],
@@ -306,7 +303,7 @@ const MOVIES = [
   ["Friday Night Lights", 2004],
   ["The Fugitive", 1993],
   ["Furious 7", 2015],
-  ["The Gambler", 2014]
+  ["The Gambler", 2014],
   ["The Game", 1997],
   ["Get Out", 2017],
   ["Ghost", 1990],
@@ -339,7 +336,6 @@ const MOVIES = [
   ["Hereditary", 2018],
   ["High Fidelity", 2000],
   ["Higher Learning", 1995],
-  ["Hitch", 2005],
   ["Home Alone", 1990],
   ["Home Alone 2: Lost in New York", 1992],
   ["Hoosiers", 1986],
@@ -359,7 +355,6 @@ const MOVIES = [
   ["Iron Man", 2008],
   ["It's Complicated", 2009],
   ["JFK", 1991],
-  ["Jack Reacher", 2012],
   ["Jaws", 1975],
   ["Jaws 2", 1978],
   ["Jeremiah Johnson", 1972],
@@ -380,7 +375,6 @@ const MOVIES = [
   ["The Last of the Mohicans", 1992],
   ["The Legend of Billie Jean", 1985],
   ["Legally Blonde", 2001],
-  ["Legends of the Fall", 1994],
   ["Lethal Weapon", 1987],
   ["Lethal Weapon 2", 1989],
   ["Limitless", 2011],
@@ -388,7 +382,6 @@ const MOVIES = [
   ["Lost in Translation", 2003],
   ["Love & Basketball", 2000],
   ["Mad Max: Fury Road", 2015],
-  ["Magic Mike", 2012],
   ["Magnolia", 1999],
   ["Major League", 1989],
   ["Manchester by the Sea", 2016],
@@ -397,7 +390,7 @@ const MOVIES = [
   ["Marathon Man", 1976],
   ["Margin Call", 2011],
   ["The Martian", 2015],
-  ["The Martrix", 1999], 
+  ["The Matrix", 1999], 
   ["Mean Girls", 2004],
   ["Meet the Parents", 2000],
   ["Memento", 2000],
@@ -448,7 +441,6 @@ const MOVIES = [
   ["Pitch Perfect", 2012],
   ["The Player", 1992],
   ["Planes, Trains and Automobiles", 1987],
-  ["Platoon", 1986],
   ["Point Break", 1991],
   ["Poltergeist", 1982],
   ["Predator", 1987],
@@ -499,7 +491,7 @@ const MOVIES = [
   ["Searching for Bobby Fischer", 1993],
   ["Shampoo", 1975],
   ["The Shawshank Redemption", 1994],
-  "She's the One", 1996], 
+  ["She's the One", 1996], 
   ["The Shining", 1980],
   ["Shooter", 2007],
   ["Shot Caller", 2017],
@@ -510,7 +502,6 @@ const MOVIES = [
   ["Singles", 1992],
   ["Single White Female", 1992],
   ["Sinners", 2025],
-  ["Sixteen Candles", 1984],
   ["The Sixth Sense", 1999],
   ["Skyfall", 2012],
   ["Slap Shot", 1977],
@@ -562,7 +553,6 @@ const MOVIES = [
   ["Trading Places", 1983],
   ["Training Day", 2001],
   ["Trainspotting", 1996],
-  ["Tremors", 1990],
   ["Tropic Thunder", 2008],
   ["The Truman Show", 1998],
   ["True Lies", 1994],
@@ -692,7 +682,6 @@ const EPISODE_LINKS = {
   "Catch Me If You Can2002": "",
   "Chef2014": "",
   "City Slickers1991": "",
-  "Clear and Present Danger1994": "",
   "Cliffhanger1993": "",
   "Close Encounters of the Third Kind1977": "",
   "Clueless1995": "",
@@ -753,7 +742,7 @@ const EPISODE_LINKS = {
   "Face/Off1997": "",
   "Fargo1996": "",
   "Fast & Furious2009": "",
-  "The Fast and the Furious2001": "",
+  "The Fast and the Furious2001": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000428198416",
   "Fast Five2011": "",
   "Fast Times at Ridgemont High1982": "",
   "Fatal Attraction1987": "",
@@ -797,6 +786,7 @@ const EPISODE_LINKS = {
   "The Hand That Rocks the Cradle1992": "",
   "The Hangover2009": "",
   "Happy Gilmore1996": "",
+  "Hardball2001": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000533805163", 
   "Hardcore1979": "",
   "Hard to Kill1990": "",
   "He Got Game1998": "",
@@ -805,7 +795,6 @@ const EPISODE_LINKS = {
   "Hereditary2018": "",
   "High Fidelity2000": "",
   "Higher Learning1995": "",
-  "Hitch2005": "",
   "Home Alone1990": "",
   "Home Alone 2: Lost in New York1992": "",
   "Hoosiers1986": "",
@@ -825,7 +814,6 @@ const EPISODE_LINKS = {
   "Iron Man2008": "",
   "It's Complicated2009": "",
   "JFK1991": "",
-  "Jack Reacher2012": "",
   "Jaws1975": "",
   "Jaws 21978": "",
   "Jeremiah Johnson1972": "",
@@ -836,7 +824,7 @@ const EPISODE_LINKS = {
   "Just One of the Guys1985": "",
   "Jurassic Park1993": "",
   "The Karate Kid1984": "",
-  "Kicking and Screaming": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000493725136", 
+  "Kicking and Screaming1995": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000493725136", 
   "Kindergarten Cop1990": "",
   "Knocked Up2007": "",
   "Kramer vs. Kramer1979": "",
@@ -846,7 +834,6 @@ const EPISODE_LINKS = {
   "The Last of the Mohicans1992": "",
   "The Legend of Billie Jean1985": "",
   "Legally Blonde2001": "",
-  "Legends of the Fall1994": "",
   "Lethal Weapon1987": "",
   "Lethal Weapon 21989": "",
   "Limitless2011": "",
@@ -854,7 +841,6 @@ const EPISODE_LINKS = {
   "Lost in Translation2003": "",
   "Love & Basketball2000": "",
   "Mad Max: Fury Road2015": "",
-  "Magic Mike2012": "",
   "Magnolia1999": "",
   "Major League1989": "",
   "Manchester by the Sea2016": "",
@@ -914,7 +900,6 @@ const EPISODE_LINKS = {
   "Pitch Perfect2012": "",
   "The Player1992": "",
   "Planes, Trains and Automobiles1987": "",
-  "Platoon1986": "",
   "Point Break1991": "",
   "Poltergeist1982": "",
   "Predator1987": "",
@@ -969,14 +954,13 @@ const EPISODE_LINKS = {
   "The Shining1980": "",
   "Shooter2007": "",
   "Shot Caller2017": "",
-  "Sicario2015": "",
+  "Sicario2015": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000752831612",
   "Sideways2004": "",
   "The Silence of the Lambs1991": "",
   "Silver Linings Playbook2012": "",
   "Singles1992": "",
   "Single White Female1992": "",
   "Sinners2025": "",
-  "Sixteen Candles1984": "",
   "The Sixth Sense1999": "",
   "Skyfall2012": "",
   "Slap Shot1977": "",
@@ -1011,7 +995,7 @@ const EPISODE_LINKS = {
   "Terminator 2: Judgment Day1991": "",
   "There Will Be Blood2007": "",
   "There's Something About Mary1998": "",
-  "They Live1988": "",
+  "They Live1988": "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882?i=1000752831612",
   "Thief1981": "",
   "This Is the End2013": "",
   "Tin Cup1996": "",
@@ -1028,7 +1012,6 @@ const EPISODE_LINKS = {
   "Trading Places1983": "",
   "Training Day2001": "",
   "Trainspotting1996": "",
-  "Tremors1990": "",
   "Tropic Thunder2008": "",
   "The Truman Show1998": "",
   "True Lies1994": "",
