@@ -19,6 +19,7 @@
     --accent-dark: #2a9e68;
     --success: #3ecf8e;
     --radius: 8px;
+    --star: #f5c518;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -54,7 +55,13 @@
   select:focus { border-color: var(--accent); }
   .results-count { font-size: 12px; color: var(--text-dim); white-space: nowrap; padding: 9px 4px; }
   .movie-list { display: flex; flex-direction: column; gap: 0; }
-  .movie-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius); cursor: pointer; transition: background 0.1s; border-bottom: 1px solid var(--border); user-select: none; position: relative; }
+  .movie-item { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+  .movie-item:last-child { border-bottom: none; }
+  .star-btn { background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; font-size: 16px; line-height: 1; color: var(--text-dim); transition: color 0.15s, transform 0.1s; user-select: none; }
+  .star-btn:hover { color: var(--star); transform: scale(1.2); }
+  .star-btn.starred { color: var(--star); }
+  .movie-row { display: flex; align-items: center; gap: 12px; width: 100%; min-width: 0; padding: 10px 12px; border-radius: var(--radius); cursor: pointer; transition: background 0.1s; border-bottom: 1px solid var(--border); user-select: none; position: relative; }
+
   .movie-row:last-child { border-bottom: none; }
   .movie-row:hover { background: var(--surface); }
   .movie-row:active { background: var(--surface2); }
@@ -67,6 +74,12 @@
   .movie-info { flex: 1; min-width: 0; }
   .movie-title { font-size: 14px; font-weight: 500; color: #f0f0f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .movie-year { font-size: 12px; color: #888; margin-top: 1px; }
+
+  .movie-item { display: flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--border); }
+  .movie-item:last-child { border-bottom: none; }
+  .star-btn { background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; font-size: 16px; line-height: 1; color: var(--text-dim); transition: color 0.15s, transform 0.1s; user-select: none; }
+  .star-btn:hover { color: var(--star); transform: scale(1.2); }
+  .star-btn.starred { color: var(--star); }
 
   .listen-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); text-decoration: none; flex-shrink: 0; transition: background 0.15s, color 0.15s, box-shadow 0.15s; cursor: pointer; }
   .listen-btn:hover { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
@@ -120,6 +133,8 @@
       <option value="">All films</option>
       <option value="u">Unwatched</option>
       <option value="w">Watched</option>
+      <option value="f">Favourites</option>
+
       
     </select>
     <select id="filter-sort" onchange="render()">
@@ -141,6 +156,10 @@
 </div>
 
 <script>
+let starred = {};
+try { const s = localStorage.getItem('rewatchables_starred'); if (s) starred = JSON.parse(s); } catch(e) {}
+function saveStarred() { try { localStorage.setItem('rewatchables_starred', JSON.stringify(starred)); } catch(e) {} }
+function toggleStar(key, e) { e.stopPropagation(); starred[key]=!starred[key]; if(!starred[key]) delete starred[key]; saveStarred(); render(); }
 
 const MOVIES = [
   ["10 Things I Hate About You", 1999],
@@ -1101,17 +1120,14 @@ function buildListenBtn(title, year) {
   const key = title + year;
   const entry = EPISODE_LINKS[key];
 
-  // No link yet — go to show page
   if (!entry || entry === "") {
     return `<a class="listen-btn" href="${SHOW_URL}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${podMicSVG} Listen Now</a>`;
   }
 
-  // Single episode link
   if (typeof entry === "string") {
     return `<a class="listen-btn" href="${entry}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${podMicSVG} Listen Now</a>`;
   }
 
-  // Multiple episodes — dropdown
   const safeKey = key.replace(/[^a-zA-Z0-9]/g, '_');
   const items = entry.map(e => `<a href="${e.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${e.label}</a>`).join('');
   return `<div class="listen-wrap" id="wrap_${safeKey}" onclick="event.stopPropagation()">
@@ -1169,10 +1185,12 @@ function render() {
   if (q) list = list.filter(m => m[0].toLowerCase().includes(q));
   if (fw === 'w') list = list.filter(m => watched[m[0]+m[1]]);
   if (fw === 'u') list = list.filter(m => !watched[m[0]+m[1]]);
+  if (fw === 'f') list = list.filter(m => starred[m[0]+m[1]]);
 
   if (so === 'y') list.sort((a,b) => a[1]-b[1]);
   else if (so === 'yn') list.sort((a,b) => b[1]-a[1]);
   else if (so === 'w') list.sort((a,b) => (watched[b[0]+b[1]]?1:0)-(watched[a[0]+a[1]]?1:0));
+  else if (so === 'f') list.sort((a,b) => (starred[b[0]+b[1]]?1:0)-(starred[a[0]+a[1]]?1:0));
   else list.sort((a,b) => a[0].localeCompare(b[0]));
 
   updateStats(list);
@@ -1192,16 +1210,15 @@ function render() {
     const key = m[0] + m[1];
     const isW = !!watched[key];
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return `<div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
-      <div class="checkbox">
-        <svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="movie-info">
-        <div class="movie-title">${m[0]}</div>
-        <div class="movie-year">${m[1]}</div>
-      </div>
-      ${buildListenBtn(m[0], m[1])}
-    </div>`;
+    const isS = !!starred[key];
+return `<div class="movie-item">
+  <button class="star-btn${isS?' starred':''}" onclick="toggleStar('${safeKey}', event)" title="${isS?'Unfavourite':'Favourite'}">&#9733;</button>
+  <div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
+    <div class="checkbox"><svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <div class="movie-info"><div class="movie-title">${m[0]}</div><div class="movie-year">${m[1]}</div></div>
+    ${buildListenBtn(m[0], m[1])}
+  </div>
+</div>`;
   }).join('');
 }
 
