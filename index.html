@@ -133,7 +133,7 @@
       <option value="">All films</option>
       <option value="u">Unwatched</option>
       <option value="w">Watched</option>
-      <option value="f">Favourites</option>
+      <option value="f">Favorites</option>
 
       
     </select>
@@ -1212,7 +1212,7 @@ function render() {
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     const isS = !!starred[key];
 return `<div class="movie-item">
-  <button class="star-btn${isS?' starred':''}" onclick="toggleStar('${safeKey}', event)" title="${isS?'Unfavourite':'Favourite'}">&#9733;</button>
+  <button class="star-btn${isS?' starred':''}" onclick="toggleStar('${safeKey}', event)" title="${isS?'Unfavorite':'Favorite'}">&#9733;</button>
   <div class="movie-row${isW?' watched':''}" onclick="toggle('${safeKey}')">
     <div class="checkbox"><svg class="check-svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
     <div class="movie-info"><div class="movie-title">${m[0]}</div><div class="movie-year">${m[1]}</div></div>
