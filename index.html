@@ -81,6 +81,10 @@
   .star-btn:hover { color: var(--star); transform: scale(1.2); }
   .star-btn.starred { color: var(--star); }
 
+  .random-btn { background: transparent; border: 1.5px solid var(--accent); border-radius: var(--radius); color: var(--accent); font-size: 13px; padding: 9px 12px; cursor: pointer; transition: background 0.15s, color 0.15s; font-weight: 600; white-space: nowrap; }
+  .random-btn:hover { background: var(--accent); color: #0a0a0a; }
+  .random-highlight { background: var(--surface2) !important; outline: 2px solid var(--accent); outline-offset: -2px; }
+
   .listen-btn { display: inline-flex; align-items: center; gap: 5px; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; background: transparent; color: var(--accent); border: 1.5px solid var(--accent); text-decoration: none; flex-shrink: 0; transition: background 0.15s, color 0.15s, box-shadow 0.15s; cursor: pointer; }
   .listen-btn:hover { background: var(--accent); color: #0a0a0a; box-shadow: 0 0 10px rgba(62,207,142,0.4); }
   .listen-btn svg { width: 10px; height: 10px; flex-shrink: 0; }
@@ -95,6 +99,8 @@
   .dropdown-menu a { display: block; padding: 8px 14px; font-size: 12px; color: var(--text); text-decoration: none; white-space: nowrap; transition: background 0.1s, color 0.1s; }
   .dropdown-menu a:hover { background: var(--accent); color: #0a0a0a; }
   .dropdown-menu a + a { border-top: 1px solid var(--border); }
+
+
 
   .no-results { padding: 48px; text-align: center; color: var(--text-muted); font-size: 14px; }
   .no-results p { margin-top: 8px; font-size: 12px; color: var(--text-dim); }
@@ -142,6 +148,8 @@
       <option value="y">By year (old→new)</option>
       <option value="yn">By year (new→old)</option>
     </select>
+    <button class="random-btn" onclick="randomMovie()">🎲 Random</button>
+
     <span class="results-count" id="results-count"></span>
   </div>
   <div class="movie-list" id="movie-list"></div>
@@ -1163,6 +1171,27 @@ function toggle(key) {
   if (!watched[key]) delete watched[key];
   save();
   render();
+}
+
+function randomMovie() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const fw = document.getElementById('filter-watch').value;
+  let pool = [...FILMS];
+  if (q) pool = pool.filter(m => m[0].toLowerCase().includes(q));
+  if (fw === 'w') pool = pool.filter(m => watched[m[0]+m[1]]);
+  if (fw === 'u') pool = pool.filter(m => !watched[m[0]+m[1]]);
+  if (fw === 'f') pool = pool.filter(m => starred[m[0]+m[1]]);
+  if (!pool.length) return;
+  const pick = pool[Math.floor(Math.random() * pool.length)];
+  const key = pick[0] + pick[1];
+  document.querySelectorAll('.random-highlight').forEach(el => el.classList.remove('random-highlight'));
+  const rows = document.querySelectorAll('.movie-item');
+  rows.forEach(row => {
+    if (row.querySelector('.movie-title').textContent === pick[0]) {
+      row.classList.add('random-highlight');
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
 }
 
 function updateStats(list) {
