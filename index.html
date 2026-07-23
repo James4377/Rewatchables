@@ -211,7 +211,8 @@ const MOVIES = [
   ["Ace Ventura: Pet Detective", 1994, ["Comedy","Mystery"]],
   ["Adventureland", 2009, ["Comedy","Romance","Drama"]],
   ["After Hours", 1985, ["Noir","Comedy"]],
-  ["Airplane!", 1980, ["Comedy","Satire"]],
+  ["Airplane!", 1980, ["Comedy","Satire"]], 
+  ["Ali", 2001. ["Sports","Drama"]], 
   ["Alien", 1979, ["Sci-fi","Horror"]],
   ["Alive", 1993, ["Drama","Adventure"]],
   ["All the President's Men", 1976, ["Drama","Mystery"]],
@@ -548,6 +549,7 @@ const MOVIES = [
   ["Searching for Bobby Fischer", 1993, ["Drama"]],
   ["Shampoo", 1975, ["Comedy","Romance","Satire"]],
   ["The Shawshank Redemption", 1994, ["Drama","Crime"]],
+  ["She's the One", 1996, ["Romance", "Comedy"]], 
   ["The Shining", 1980, ["Horror","Thriller"]],
   ["Shooter", 2007, ["Action","Thriller","Crime"]],
   ["Shot Caller", 2017, ["Crime","Drama"]],
@@ -1225,6 +1227,7 @@ function randomMovie() {
   });
 }
 
+
 function updateStats(list) {
   const total = list.length;
   const wc = list.filter(m => watched[m[0]+m[1]]).length;
@@ -1264,6 +1267,11 @@ function render() {
     noResults.style.display = 'block';
     return;
   }
+
+  const fg = document.getElementById('filter-genre').value;
+if (fg) list = list.filter(m => m[2] && m[2].includes(fg));
+
+  
   noResults.style.display = 'none';
 
   container.innerHTML = list.map(m => {
