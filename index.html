@@ -1214,6 +1214,7 @@ function randomMovie() {
   if (fw === 'w') pool = pool.filter(m => watched[m[0]+m[1]]);
   if (fw === 'u') pool = pool.filter(m => !watched[m[0]+m[1]]);
   if (fw === 'f') pool = pool.filter(m => starred[m[0]+m[1]]);
+  if (fg) pool = pool.filter(m => m[2] && m[2].includes(fg));
   if (!pool.length) return;
   const pick = pool[Math.floor(Math.random() * pool.length)];
   const key = pick[0] + pick[1];
