@@ -1208,6 +1208,7 @@ function toggle(key) {
 function randomMovie() {
   const q = document.getElementById('search').value.toLowerCase();
   const fw = document.getElementById('filter-watch').value;
+  const fg = document.getElementById('filter-genre').value;
   let pool = [...FILMS];
   if (q) pool = pool.filter(m => m[0].toLowerCase().includes(q));
   if (fw === 'w') pool = pool.filter(m => watched[m[0]+m[1]]);
