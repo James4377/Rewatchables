@@ -220,8 +220,8 @@
       <option value="Western">Western</option>
     </select>
     <div class="view-toggle">
-      <button class="view-btn active" id="btn-list" onclick="setView('list')" title="List view">☰</button>
-      <button class="view-btn" id="btn-grid" onclick="setView('grid')" title="Grid view">⊞</button>
+      <button class="view-btn active" id="btn-grid" onclick="setView('grid')" title="Grid view">⊞</button>
+      <button class="view-btn" id="btn-list" onclick="setView('list')" title="List view">☰</button>
     </div>
     <button class="random-btn" onclick="randomMovie()">🎲 Random</button>
     <span class="results-count" id="results-count"></span>
@@ -1242,7 +1242,7 @@ async function fetchPoster(title, year) {
 // State
 let watched = {};
 let starred = {};
-let currentView = 'list';
+let currentView = 'grid';
 
 try { const s = localStorage.getItem('rewatchables_v3'); if (s) watched = JSON.parse(s); } catch(e) {}
 try { const s = localStorage.getItem('rewatchables_starred'); if (s) starred = JSON.parse(s); } catch(e) {}
