@@ -1229,7 +1229,7 @@ async function fetchPoster(title, year) {
   const key = title + year;
   if (posterCache[key] !== undefined) return posterCache[key];
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}&year=${year}`);
+    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}`);
     const data = await res.json();
     const result = data.results && data.results[0];
     const path = result && result.poster_path ? `https://image.tmdb.org/t/p/w300${result.poster_path}` : null;
