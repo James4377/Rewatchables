@@ -252,7 +252,7 @@ const MOVIES = [
   ["Adventureland", 2009, ["Comedy","Romance","Drama"]],
   ["After Hours", 1985, ["Noir","Comedy"]],
   ["Airplane!", 1980, ["Comedy","Satire"]], 
-  ["Ali", 2001. ["Sports","Drama","Biographical"]], 
+  ["Ali", 2001, ["Sports","Drama","Biographical"]], 
   ["Alien", 1979, ["Sci-fi","Horror"]],
   ["Aliens", 1986, ["Sci-fi", "Horror"]], 
   ["Alive", 1993, ["Drama","Adventure"]],
@@ -1223,19 +1223,135 @@ const TMDB_KEY = 'bb6d826dff0060d2b76c41fad00b4a17';
 const SHOW_URL = "https://podcasts.apple.com/us/podcast/the-rewatchables/id1268527882";
 const FILMS = [...new Map(MOVIES.map(m=>[m[0]+m[1],m])).values()].sort((a,b)=>a[0].localeCompare(b[0]));
 
-// Poster cache
-const posterCache = {};
+const POSTER_CACHE_KEY = 'rewatchables_posters_v2';
+const POSTER_CONCURRENCY = 6;
+
+let posterCache = {};
+const posterInFlight = new Map();
+const posterQueue = [];
+let posterActive = 0;
+
+try {
+  const savedPosters = localStorage.getItem(POSTER_CACHE_KEY);
+  if (savedPosters) posterCache = JSON.parse(savedPosters) || {};
+} catch(e) {
+  posterCache = {};
+}
+
+function hasPosterCache(key) {
+  return Object.prototype.hasOwnProperty.call(posterCache, key);
+}
+
+function savePosterCache() {
+  try {
+    localStorage.setItem(POSTER_CACHE_KEY, JSON.stringify(posterCache));
+  } catch(e) {
+  }
+}
+
+function runPosterQueue() {
+  while (posterActive < POSTER_CONCURRENCY && posterQueue.length) {
+    const job = posterQueue.shift();
+    posterActive++;
+
+    job()
+      .catch(() => null)
+      .finally(() => {
+        posterActive--;
+        runPosterQueue();
+      });
+  }
+}
+
+function enqueuePoster(job) {
+  return new Promise(resolve => {
+    posterQueue.push(async () => {
+      try {
+        resolve(await job());
+      } catch(e) {
+        resolve(null);
+      }
+    });
+    runPosterQueue();
+  });
+}
+
 async function fetchPoster(title, year) {
   const key = title + year;
-  if (posterCache[key] !== undefined) return posterCache[key];
+
+  if (hasPosterCache(key)) return posterCache[key];
+  if (posterInFlight.has(key)) return posterInFlight.get(key);
+
+  const request = enqueuePoster(async () => {
+    if (hasPosterCache(key)) return posterCache[key];
+
+    const base = 'https://api.themoviedb.org/3/search/movie';
+    const params = `api_key=${TMDB_KEY}&language=en-US&include_adult=false&year=${encodeURIComponent(year)}&query=${encodeURIComponent(title)}`;
+
+    try {
+      const res = await fetch(`${base}?${params}`);
+      if (!res.ok) throw new Error(`TMDB request failed: ${res.status}`);
+
+      const data = await res.json();
+      let result = data.results && data.results[0];
+
+      if (!result) {
+        const fallbackRes = await fetch(
+          `${base}?api_key=${TMDB_KEY}&language=en-US&include_adult=false&query=${encodeURIComponent(title)}`
+        );
+        if (fallbackRes.ok) {
+          const fallbackData = await fallbackRes.json();
+          result = fallbackData.results && fallbackData.results[0];
+        }
+      }
+
+      const path = result && result.poster_path
+        ? `https://image.tmdb.org/t/p/w300${result.poster_path}`
+        : null;
+
+      posterCache[key] = path;
+      savePosterCache();
+      return path;
+    } catch(e) {
+      return null;
+    }
+  });
+
+  posterInFlight.set(key, request);
+
   try {
-    const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${encodeURIComponent(title)}`);
-    const data = await res.json();
-    const result = data.results && data.results[0];
-    const path = result && result.poster_path ? `https://image.tmdb.org/t/p/w300${result.poster_path}` : null;
-    posterCache[key] = path;
-    return path;
-  } catch(e) { posterCache[key] = null; return null; }
+    return await request;
+  } finally {
+    posterInFlight.delete(key);
+  }
+}
+
+async function loadPosterForCard(el, title, year) {
+  if (!el || !document.body.contains(el)) return;
+
+  const url = await fetchPoster(title, year);
+  if (!url || !document.body.contains(el)) return;
+
+  const existingImg = el.querySelector('.poster-image');
+  if (existingImg) return;
+
+  const img = document.createElement('img');
+  img.className = 'poster-image';
+  img.src = url;
+  img.alt = `${title} poster`;
+  img.loading = 'lazy';
+  img.decoding = 'async';
+
+  img.onload = () => {
+    const fb = el.querySelector('.poster-fallback');
+    if (fb && document.body.contains(el)) {
+      el.replaceChild(img, fb);
+    }
+  };
+
+  img.onerror = () => {
+    img.remove();
+  };
 }
 
 // State
@@ -1405,18 +1521,37 @@ async function renderGrid(list, container) {
       <div class="grid-listen" onclick="event.stopPropagation()">${buildGridListenBtn(m[0], m[1])}</div>
     </div>`;
   }).join('');
-  list.forEach(async m => {
+
+  const cards = [];
+  list.forEach(m => {
     const key = m[0] + m[1];
     const safeKey = key.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
     const el = document.getElementById(`gi_${safeKey}`);
-    if (!el) return;
-    const url = await fetchPoster(m[0], m[1]);
-    if (url) {
-      const img = document.createElement('img');
-      img.src = url; img.alt = m[0];
-      img.onload = () => { const fb = el.querySelector('.poster-fallback'); if (fb) el.replaceChild(img, fb); };
-    }
+    if (el) cards.push({ el, title: m[0], year: m[1] });
   });
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const el = entry.target;
+        const title = el.dataset.posterTitle;
+        const year = el.dataset.posterYear;
+
+        observer.unobserve(el);
+        loadPosterForCard(el, title, year);
+      });
+    }, { rootMargin: '800px 0px' });
+
+    cards.forEach(({el, title, year}) => {
+      el.dataset.posterTitle = title;
+      el.dataset.posterYear = year;
+      observer.observe(el);
+    });
+  } else {
+    cards.forEach(({el, title, year}) => loadPosterForCard(el, title, year));
+  }
 }
 
 render();
