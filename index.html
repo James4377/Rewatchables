@@ -106,7 +106,7 @@
   .dropdown-menu a + a { border-top: 1px solid var(--border); }
 
   .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
-  .grid-item { position: relative; border-radius: var(--card-radius); overflow: hidden; cursor: pointer; background: var(--surface); border: 1px solid var(--border); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; aspect-ratio: 2/3; }
+  .grid-item { position: relative; border-radius: var(--card-radius); cursor: pointer; background: var(--surface); border: 1px solid var(--border); transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; aspect-ratio: 2/3; }
   .grid-item:hover { transform: scale(1.03); border-color: var(--accent); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
   .grid-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .poster-fallback { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; text-align: center; background: var(--surface2); }
@@ -136,11 +136,28 @@
   footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-dim); text-align: center; line-height: 1.8; }
 
   @media (max-width: 600px) {
-    .stats-section { flex-direction: column; align-items: stretch; }
-    .stats-cards { grid-template-columns: repeat(3, 1fr); }
-    .header-text h1 { font-size: 24px; }
-    .stat .num { font-size: 24px; }
-    .movie-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; }
+  header { padding: 24px 0 16px; margin-bottom: 20px; }
+  .header-logo { width: 60px; height: 60px; border-radius: 14px; }
+  .header-text h1 { font-size: 22px; }
+  .header-text p { font-size: 12px; }
+  .last-updated { font-size: 10px; }
+
+  .stats-section { flex-direction: row; align-items: center; gap: 12px; margin-bottom: 16px; flex-wrap: nowrap; }
+  .progress-ring-wrap { width: 80px; height: 80px; flex-shrink: 0; }
+  .progress-ring-wrap svg { width: 80px; height: 80px; }
+  .ring-label .pct { font-size: 15px; }
+  .stats-cards { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .stat { padding: 10px 8px; }
+  .stat .num { font-size: 20px; }
+  .stat .lbl { font-size: 9px; }
+
+  .controls { gap: 6px; }
+  .search-wrap { min-width: 100%; }
+  select { font-size: 12px; padding: 8px 24px 8px 10px; }
+  .random-btn { font-size: 12px; padding: 8px 10px; }
+
+  .movie-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+}
   }
 </style>
 </head>
